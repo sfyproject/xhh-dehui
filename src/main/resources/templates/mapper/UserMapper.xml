@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.User">
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_openid" jdbcType="VARCHAR"
+			property="userOpenid" />
+		<result column="user_sessionkey" jdbcType="VARCHAR"
+			property="userSessionkey" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="user_phone" jdbcType="VARCHAR"
+			property="userPhone" />
+		<result column="user_wallet" jdbcType="VARCHAR"
+			property="userWallet" />
+		<result column="user_address" jdbcType="VARCHAR"
+			property="userAddress" />
+		<result column="user_password" jdbcType="VARCHAR"
+			property="userPassword" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_id, user_openid, user_sessionkey,
+		user_name,
+		user_phone, user_wallet, user_address, user_password, create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="com.store.model.User"
+		resultMap="BaseResultMap">
+		select *
+		from store_user
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_user
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.User">
+		insert into store_user
+		(user_id, user_openid,
+		user_sessionkey,
+		user_name, user_phone,
+		user_wallet, user_address, user_password, create_time
+		)
+		values
+		(#{userId,jdbcType=VARCHAR},
+		#{userOpenid,jdbcType=VARCHAR},
+		#{userSessionkey,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{userPhone,jdbcType=VARCHAR},
+		#{userWallet,jdbcType=VARCHAR},
+		#{userAddress,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.User">
+		insert into store_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userOpenid != null">
+				user_openid,
+			</if>
+			<if test="userSessionkey != null">
+				user_sessionkey,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="userPhone != null">
+				user_phone,
+			</if>
+			<if test="userWallet != null">
+				user_wallet,
+			</if>
+			<if test="userAddress != null">
+				user_address,
+			</if>
+			<if test="userPassword != null">
+				user_password,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userOpenid != null">
+				#{userOpenid,jdbcType=VARCHAR},
+			</if>
+			<if test="userSessionkey != null">
+				#{userSessionkey,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+				#{userPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userWallet != null">
+				#{userWallet,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				#{userAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.User">
+		update store_user
+		<set>
+			<if test="userOpenid != null">
+				user_openid = #{userOpenid,jdbcType=VARCHAR},
+			</if>
+			<if test="userSessionkey != null">
+				user_sessionkey =
+				#{userSessionkey,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+				user_phone = #{userPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userWallet != null">
+				user_wallet = #{userWallet,jdbcType=VARCHAR},
+			</if>
+			<if test="userAddress != null">
+				user_address =
+				#{userAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				user_password =
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time =
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.User">
+		update store_user
+		set user_openid =
+		#{userOpenid,jdbcType=VARCHAR},
+		user_sessionkey =
+		#{userSessionkey,jdbcType=VARCHAR},
+		user_name =
+		#{userName,jdbcType=VARCHAR},
+		user_phone =
+		#{userPhone,jdbcType=VARCHAR},
+		user_wallet =
+		#{userWallet,jdbcType=VARCHAR},
+		user_address =
+		#{userAddress,jdbcType=VARCHAR},
+		user_password =
+		#{userPassword,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where user_id =
+		#{userId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectAll" parameterType="com.store.model.User"
+		resultMap="BaseResultMap">
+		select * from
+		store_user where 1 = 1
+		<if test="userName != null and userName !=''">
+			and user_name like concat('%', #{userName}, '%')
+		</if>
+		<if test="userPhone != null and userPhone !=''">
+			and user_phone like concat('%', #{userPhone}, '%')
+		</if>
+		<if
+			test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+			<if test="startDate != null and startDate != ''">
+				and create_time <![CDATA[ >= ]]>
+				#{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and create_time <![CDATA[ <= ]]>
+				#{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+	</select>
+	<select id="loadUserByUsername" resultMap="BaseResultMap">
+		select * from
+		store_user where user_phone = #{username}
+	</select>
+	<select id="loadUserByWxOpenid" resultMap="BaseResultMap">
+		select * from
+		store_user where user_openid = #{wxOpenid}
+	</select>
+	<update id="updateWxOpenidAndwxSessionKey"
+		parameterType="com.store.model.User">
+		update store_user set user_openid = #{userOpenid},
+		user_sessionkey = #{userSessionkey}
+		where user_id = #{userId}
+	</update>
+	
+	<!-- 批量删除 -->
+     <delete id="batchRemove">
+        delete from store_user where user_id in (
+        <foreach collection="list" item="id" separator=",">
+            #{id}
+        </foreach>
+        )  
+     </delete>
+</mapper>

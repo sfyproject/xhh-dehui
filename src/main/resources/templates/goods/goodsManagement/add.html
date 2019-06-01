@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8"/>
+<head th:include="include :: header">
+<style type="text/css">
+       table tbody {
+           display: block;
+           height: 100%;
+           overflow-y: scroll;
+       }
+       table thead,
+       table tbody tr {
+           display: table;
+           width: 100%;
+           table-layout: fixed;
+           text-align: center;
+       }
+        
+</style>
+</head>
+<body class="gray-bg">
+	<div id="toolbar" class="wrapper wrapper-content animated fadeInRight">
+		<button shiro:hasPermission="back:api:goodsMangement:batchRemove" 
+				type="button" class="btn  btn-primary" onclick="tradd()">
+				<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+		</button>
+		<button shiro:hasPermission="back:api:goodsMangement:batchRemove" 
+				type="button" class="btn  btn-primary" onclick="makeJson()">
+				<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>
+		</button>
+	     <!-- <input type="button" class="btn btn-primary"
+			onclick="tradd()" value="新增"> 
+	   	<input type="button" class="btn btn-success"
+			onclick="makeJson()" value="确定" id="addbutton">-->
+	</div>
+	<div>
+		<table class="table table-bordered table-responsive section-scroll" id = "table">
+           <thead id = "thead"> 
+				<tr class="text-c">
+					<th>商品标签</th>
+					<th>商品类型</th>
+					<th>商品名称</th>
+					<th>商品规格</th>
+					<th>入库价格</th>
+					<th>原价</th>
+					<th>现价</th>
+					<th>秒杀价</th>
+					<th>拼团价</th>
+					<th>商品数量</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+		
+			<tbody id = "tbody">
+				<tr>
+					<td>
+                   		<select id="goodsLabel1" name="goodsLabel" class="selectpicker show-tick form-control" data-style="btn-info" title="请选择一项" data-live-search="true" style="color: blue;">
+                        </select>
+                     </td>
+					<td>
+                   		<select id="goodsType1" name="goodsType"  class="selectpicker show-tick form-control" data-style="btn-info" title="请选择一项" data-live-search="true" style="color: blue;">
+                        </select>
+                     </td>
+					 <td><input type="text" class="form-control" id="goodsTitle1"></td>
+                     <td><input type="text" class="form-control" id="goodsSpec1"></td>
+                     <td><input type="text" class="form-control" id="goodsLibrary1"></td>
+                     <td><input type="text" class="form-control" id="goodsOriginal1"></td>
+                     <td><input type="text" class="form-control" id="goodsPrice1"></td>
+                     <td><input type="text" class="form-control" id="goodsSecond1"></td>
+                     <td><input type="text" class="form-control" id="goodsGroup1"></td>
+                     <td><input type="text" class="form-control" id="goodsInventory1"></td>
+					<td>
+					    <button type="button" class="btn btn-warning" onclick="trdelelt(1,this)">
+							<i class="fa fa-trash" aria-hidden="true">删除</i>
+						</button>
+					</td>
+				</tr>
+				<tr id="trMore">
+					
+				</tr>
+			</tbody>
+		</table>
+		
+	</div>					
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/goods/goodsManagement/add.js"></script>
+	<script type="text/javascript" src="/js/plugins/bootstrap-table/bootstrap-table-fixed-columns.js"></script>
+</body>
+</html>

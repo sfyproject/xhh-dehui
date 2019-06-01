@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.GoodsMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Goods">
+		<id column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+		<result column="goods_title" jdbcType="VARCHAR"
+			property="goodsTitle" />
+		<result column="goods_label" jdbcType="VARCHAR"
+			property="goodsLabel" />
+		<result column="goods_describe" jdbcType="VARCHAR"
+			property="goodsDescribe" />
+		<result column="goods_image" jdbcType="VARCHAR"
+			property="goodsImage" />
+		<result column="goods_library" jdbcType="VARCHAR"
+			property="goodsLibrary" />
+		<result column="goods_original" jdbcType="VARCHAR"
+			property="goodsOriginal" />
+		<result column="goods_price" jdbcType="VARCHAR"
+			property="goodsPrice" />
+		<result column="goods_second" jdbcType="VARCHAR"
+			property="goodsSecond" />
+		<result column="goods_type" jdbcType="VARCHAR"
+			property="goodsType" />
+		<result column="goods_spec" jdbcType="VARCHAR"
+			property="goodsSpec" />
+		<result column="goods_inventory" jdbcType="INTEGER"
+			property="goodsInventory" />
+		<result column="goods_sales" jdbcType="INTEGER"
+			property="goodsSales" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="goods_group" jdbcType="VARCHAR"
+			property="goodsGroup" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		goods_id, goods_title, goods_label, goods_describe,
+		goods_image, goods_library, goods_original, goods_price,
+		goods_second,
+		goods_type, goods_spec, goods_inventory, goods_sales, create_time, goods_group
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_goods
+		where goods_id = #{goodsId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_goods
+		where goods_id = #{goodsId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Goods">
+
+		insert into store_goods
+		(goods_id, goods_title, goods_label, goods_describe, goods_image,
+		goods_library, goods_original, goods_price,
+
+		goods_second, goods_type,
+		goods_spec,
+		goods_inventory, goods_sales, create_time,goods_group
+		)
+		
+		values
+		(#{goodsId,jdbcType=VARCHAR},
+		#{goodsTitle,jdbcType=VARCHAR},
+		#{goodsLabel,jdbcType=VARCHAR},
+		#{goodsDescribe,jdbcType=VARCHAR},
+		#{goodsImage,jdbcType=VARCHAR},
+		#{goodsLibrary,jdbcType=VARCHAR},
+		#{goodsOriginal,jdbcType=VARCHAR}, 
+		#{goodsPrice,jdbcType=VARCHAR},
+		#{goodsSecond,jdbcType=VARCHAR},
+		#{goodsType,jdbcType=VARCHAR},
+		#{goodsSpec,jdbcType=VARCHAR},
+		#{goodsInventory,jdbcType=INTEGER},
+		#{goodsSales,jdbcType=INTEGER}, 
+		#{createTime,jdbcType=TIMESTAMP},
+		#{goods_group,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Goods">
+		insert into store_goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="goodsId != null">
+				goods_id,
+			</if>
+			<if test="goodsTitle != null">
+				goods_title,
+			</if>
+			<if test="goodsLabel != null">
+				goods_label,
+			</if>
+			<if test="goodsDescribe != null">
+				goods_describe,
+			</if>
+			<if test="goodsImage != null">
+				goods_image,
+			</if>
+			<if test="goodsLibrary != null">
+				goods_library,
+			</if>
+			<if test="goodsOriginal != null">
+				goods_original,
+			</if>
+			<if test="goodsPrice != null">
+				goods_price,
+			</if>
+			<if test="goodsSecond != null">
+				goods_second,
+			</if>
+			<if test="goodsType != null">
+				goods_type,
+			</if>
+			<if test="goodsSpec != null">
+				goods_spec,
+			</if>
+			<if test="goodsInventory != null">
+				goods_inventory,
+			</if>
+			<if test="goodsSales != null">
+				goods_sales,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="goodsGroup != null">
+				goods_group,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="goodsId != null">
+				#{goodsId,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsTitle != null">
+				#{goodsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsLabel != null">
+				#{goodsLabel,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsDescribe != null">
+				#{goodsDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsImage != null">
+				#{goodsImage,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsLibrary != null">
+				#{goodsLibrary,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsOriginal != null">
+				#{goodsOriginal,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsPrice != null">
+				#{goodsPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsSecond != null">
+				#{goodsSecond,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsType != null">
+				#{goodsType,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsSpec != null">
+				#{goodsSpec,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsInventory != null">
+				#{goodsInventory,jdbcType=INTEGER},
+			</if>
+			<if test="goodsSales != null">
+				#{goodsSales,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="goodsGroup != null">
+				#{goodsGroup,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Goods">
+		update store_goods
+		<set>
+			<if test="goodsTitle != null">
+				goods_title = #{goodsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsLabel != null">
+				goods_label = #{goodsLabel,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsDescribe != null">
+				goods_describe = #{goodsDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsImage != null">
+				goods_image = #{goodsImage,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsLibrary != null">
+				goods_library = #{goodsLibrary,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsOriginal != null">
+				goods_original = #{goodsOriginal,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsPrice != null">
+				goods_price = #{goodsPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsSecond != null">
+				goods_second = #{goodsSecond,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsType != null">
+				goods_type = #{goodsType,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsSpec != null">
+				goods_spec = #{goodsSpec,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsInventory != null">
+				goods_inventory = #{goodsInventory,jdbcType=INTEGER},
+			</if>
+			<if test="goodsSales != null">
+				goods_sales = #{goodsSales,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="goodsGroup != null">
+				goods_group=#{goodsGroup,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where goods_id = #{goodsId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Goods">
+		update store_goods
+		set goods_title =
+		#{goodsTitle,jdbcType=VARCHAR},
+		goods_label =
+		#{goodsLabel,jdbcType=VARCHAR},
+		goods_describe =
+		#{goodsDescribe,jdbcType=VARCHAR},
+		goods_image =
+		#{goodsImage,jdbcType=VARCHAR},
+		goods_library =
+		#{goodsLibrary,jdbcType=VARCHAR},
+		goods_original =
+		#{goodsOriginal,jdbcType=VARCHAR},
+		goods_price =
+		#{goodsPrice,jdbcType=VARCHAR},
+		goods_second =
+		#{goodsSecond,jdbcType=VARCHAR},
+		goods_type =
+		#{goodsType,jdbcType=VARCHAR},
+		goods_spec =
+		#{goodsSpec,jdbcType=VARCHAR},
+		goods_inventory =
+		#{goodsInventory,jdbcType=INTEGER},
+		goods_sales =
+		#{goodsSales,jdbcType=INTEGER},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		goods_group =
+		#{goodsGroup,jdbcType=VARCHAR}
+		where goods_id =
+		#{goodsId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectGoodsTypes" resultType="java.lang.String">
+		select distinct
+		goods_type from store_goods
+	</select>
+	<select id="selectByType" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		goods_id, goods_describe, goods_price, goods_inventory, goods_sales,
+		goods_title
+		from
+		store_goods
+		where
+		goods_type = #{goodsType} and goods_label = '6'
+		order by
+		create_time
+		desc
+	</select>
+	<select id="selectByLabel" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		goods_id, goods_describe, goods_price, goods_inventory, goods_sales,
+		goods_title, goods_label
+		from
+		store_goods
+		where
+		goods_label = #{goodsLabel,jdbcType=VARCHAR}
+		order by
+		create_time
+		desc
+	</select>
+
+	<select id="selectHighestSales" resultMap="BaseResultMap">
+		select * from
+		store_goods where goods_label = 6 order by goods_sales desc limit 0, 10
+	</select>
+	<select id="selectNewArrival" resultMap="BaseResultMap">
+		select * from
+		store_goods where goods_label = 6 order by create_time desc limit 0, 10
+	</select>
+	<select id="selectAll" parameterType="com.store.model.Goods"
+		resultMap="BaseResultMap">
+		select a.*,
+			b.sort_name as name,
+			c.sort_name as parentName 
+			FROM store_goods a 
+			LEFT JOIN store_sort b ON a.goods_type=b.sort_id 
+			LEFT JOIN store_sort c ON b.parent_id=c.sort_id
+		where 1 = 1
+		<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+			<if test="startDate != null and startDate != ''">
+				and create_time <![CDATA[ >= ]]>
+				#{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and create_time <![CDATA[ <= ]]>
+				#{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		<if test="goodsTitle != null and goodsTitle !=''">
+			and goods_title like concat('%', #{goodsTitle}, '%')
+		</if>
+		<if test="goodsType != null and goodsType !=''">
+			and goods_type = #{goodsType}
+		</if>
+		<if test="goodsPrice != null and goodsPrice !=''">
+			and goods_price = #{goodsPrice}
+		</if>
+		order by
+		create_time
+		desc
+	</select>
+	<select id="selectByGids" resultMap="BaseResultMap">
+		select * from store_goods
+		where 1 = 1
+		<if test="ids != null">
+			and goods_id in
+			<foreach collection="ids" item="id" open="(" close=")" separator=",">
+				#{id}
+			</foreach>
+		</if>
+	</select>
+	
+	 <update id="updateBatch" parameterType="java.util.List">
+		  update store_goods
+	         set
+			 goods_type='2'         
+		     where goods_id in
+		     <foreach collection="list" index="index" item="item"
+		              separator="," open="(" close=")">
+		         #{item.goodsId,jdbcType=VARCHAR}
+		     </foreach>
+	 </update>
+	 
+	<!-- WXY 查询热销商品 -->
+ 	<select id="getSellWellgoods" parameterType="com.store.model.Goods" resultMap="BaseResultMap">
+		SELECT a.*,b.sort_name as name,c.sort_name as parentName ,d.lowerLimit as lowerLimit
+		FROM store_goods a 
+		LEFT JOIN store_sort b ON a.goods_type=b.sort_id 
+		LEFT JOIN store_sort c ON b.parent_id=c.sort_id
+		left JOIN ( SELECT MAX(lower_limit) lowerLimit,goods_id FROM store_goods_lower_limit GROUP BY goods_id) d ON a.goods_id= d.goods_id
+		where c.sort_id !='1'
+			<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+				<if test="startDate != null and startDate != ''">
+					and a.create_time <![CDATA[ >= ]]>
+					#{startDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="endDate != null and endDate != ''">
+					and a.create_time <![CDATA[ <= ]]>
+					#{endDate,jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="goodsTitle != null and goodsTitle !=''">
+				and a.goods_title like concat('%', #{goodsTitle}, '%')
+			</if>
+			<if test="goodsType != null and goodsType !=''">
+				and a.goods_type = #{goodsType}
+			</if>
+			<if test="goodsPrice != null and goodsPrice !=''">
+				and a.goods_price = #{goodsPrice}
+			</if>
+			<if test="goodsLabel != null and goodsLabel !=''">
+				and a.goods_label = #{goodsLabel}
+			</if>
+		
+		order by
+		a.goods_sales
+		desc
+	</select> 
+	
+	<!-- 批量删除 -->
+     <delete id="batchRemove">
+        delete g,i from store_goods g LEFT JOIN store_gimg i ON g.goods_id=i.gimg_gid
+		where g.goods_id in (
+        <foreach collection="list" item="id" separator=",">
+            #{id}
+        </foreach>
+        )  
+     </delete>
+
+     <delete id="deleteByGoodsId" parameterType="java.lang.String">
+		delete g,i from store_goods g LEFT JOIN store_gimg i ON g.goods_id=i.gimg_gid
+		where g.goods_id = #{goodsId,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true">
+		insert into store_goods 
+		(goods_id,
+		goods_title, 
+		goods_label, 
+		goods_describe, 
+		goods_image,
+		goods_library, 
+		goods_original, 
+		goods_price,
+		goods_second, 
+		goods_type,
+		goods_spec,
+		goods_inventory, 
+		goods_sales, 
+		create_time,
+		goods_group)
+		value
+		<foreach collection="list" separator="," item="item">
+		(#{item.goodsId,jdbcType=VARCHAR},
+		#{item.goodsTitle,jdbcType=VARCHAR},
+		#{item.goodsLabel,jdbcType=VARCHAR},
+		#{item.goodsDescribe,jdbcType=VARCHAR},
+		#{item.goodsImage,jdbcType=VARCHAR},
+		#{item.goodsLibrary,jdbcType=VARCHAR},
+		#{item.goodsOriginal,jdbcType=VARCHAR}, 
+		#{item.goodsPrice,jdbcType=VARCHAR},
+		#{item.goodsSecond,jdbcType=VARCHAR},
+		#{item.goodsType,jdbcType=VARCHAR},
+		#{item.goodsSpec,jdbcType=VARCHAR},
+		#{item.goodsInventory,jdbcType=INTEGER},
+		#{item.goodsSales,jdbcType=INTEGER}, 
+		#{item.createTime,jdbcType=TIMESTAMP},
+		#{item.goodsGroup,jdbcType=TIMESTAMP}
+		)
+		</foreach>
+	</insert>
+
+	<select id="selectByGoodsTitle" 
+			parameterType="java.lang.String" 
+			resultMap="BaseResultMap">
+		select * from store_goods where goods_title = #{goodsTitle,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByTitle" 
+			parameterType="java.lang.String" 
+			resultMap="BaseResultMap">
+		select * from store_goods where goods_title like concat('%', #{title}, '%')
+	</select>
+	<!-- wxy查询所有 -->
+	<select id="selectAllbyEntity" parameterType="com.store.model.Goods"
+		resultMap="BaseResultMap">
+		SELECT a.*,
+			b.sort_name as name,
+			c.sort_name as parentName,
+			d.lowerLimit as lowerLimit
+			FROM store_goods a 
+			INNER JOIN store_sort b ON a.goods_type=b.sort_id 
+			INNER JOIN store_sort c ON b.parent_id=c.sort_id
+		    left JOIN ( SELECT MAX(lower_limit) lowerLimit,goods_id FROM store_goods_lower_limit GROUP BY goods_id) d ON a.goods_id= d.goods_id
+           <where>
+				<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+					<if test="startDate != null and startDate != ''">
+						and a.create_time <![CDATA[ >= ]]>
+						#{startDate,jdbcType=TIMESTAMP}
+					</if>
+					<if test="endDate != null and endDate != ''">
+						and a.create_time <![CDATA[ <= ]]>
+						#{endDate,jdbcType=TIMESTAMP}
+					</if>
+				</if>
+				<if test="goodsTitle != null and goodsTitle !=''">
+					and a.goods_title like concat('%', #{goodsTitle}, '%')
+				</if>
+				<if test="goodsType != null and goodsType !=''">
+					and a.goods_type = #{goodsType}
+				</if>
+				<if test="goodsPrice != null and goodsPrice !=''">
+					and a.goods_price = #{goodsPrice}
+				</if>
+				<if test="goodsLabel != null and goodsLabel !=''">
+					and a.goods_label = #{goodsLabel}
+				</if>
+			</where>
+		order by
+		a.create_time
+		desc
+	</select>
+	<!-- wxy 根据标签修改 -->
+	<update id="updateByGoodsLabel"
+		parameterType="com.store.model.Goods">
+		update store_goods
+		set 
+		goods_label =
+		#{goodsLabel,jdbcType=VARCHAR},
+		goods_type =
+		#{goodsType,jdbcType=VARCHAR}
+		where goods_label =
+		#{goodsLabelt,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectOneGoods" 
+			parameterType="com.store.model.Goods" 
+			resultMap="BaseResultMap">
+		select a.*,
+			b.sort_name as name,
+			c.sort_name as parentName 
+			FROM store_goods a 
+			LEFT JOIN store_sort b ON a.goods_type=b.sort_id 
+			LEFT JOIN store_sort c ON b.parent_id=c.sort_id
+		where 1 = 1
+			<if test="goodsId != null and goodsId !=''">
+				and a.goods_Id = #{goodsId}
+			</if>
+	</select>
+	<select id="selectTree" resultType="com.store.model.GoodsTree">
+	(SELECT g.goods_id AS id ,g.goods_title as name,g.goods_type as pid FROM store_goods g INNER JOIN store_sort s ON g.goods_type=s.sort_id INNER JOIN store_sort ps ON s.parent_id=ps.sort_id  WHERE ps.sort_id !='1')
+		UNION ALL
+	(SELECT s.sort_id AS id ,s.sort_name as name,s.parent_id as pid FROM store_goods g INNER JOIN store_sort s ON g.goods_type=s.sort_id INNER JOIN store_sort ps ON s.parent_id=ps.sort_id WHERE ps.sort_id !='1' GROUP BY s.sort_id )
+		UNION ALL
+    (SELECT ps.sort_id AS id ,ps.sort_name as name,ps.parent_id as pid FROM store_goods g INNER JOIN store_sort s ON g.goods_type=s.sort_id INNER JOIN store_sort ps ON s.parent_id=ps.sort_id WHERE ps.sort_id !='1' GROUP BY ps.sort_id)
+	</select>
+</mapper>

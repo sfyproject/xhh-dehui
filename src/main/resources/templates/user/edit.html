@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="userId" name="userId" class="form-control" th:value="${user.userId}" type="hidden"/>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">用户姓名：</label>
+								<div class="col-sm-5">
+									<input id="userName" name="userName" class="form-control" th:value="${user.userName}" type="text" placeholder="请输入用户姓名"/>
+								</div>
+								
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">手机号：</label>
+								<div class="col-sm-5">
+									<input id="userPhone" name="userPhone" th:value="${user.userPhone}" class="form-control" placeholder="请输入手机号"
+										type="text" />
+								</div>
+								
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label">用户余额：</label>
+								<div class="col-sm-5">
+									<input id="userWallet" name="userWallet" th:value="${user.userWallet}" placeholder="请输入用户余额"  class="form-control" type="text"/>
+								</div>
+								
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">地址：</label>
+								<div class="col-sm-5">
+									<input id="userAddress" name="userAddress"  th:value="${user.userAddress}" class="form-control" placeholder="请输入地址"
+										type="text" />
+								</div>
+								
+							</div>
+							<div class="form-group">
+	                          <label class="col-sm-4 control-label">用户密码：</label>
+	                           <div class="col-sm-5">
+	                              <input id="userPassword" name="userPassword" th:value="${user.userPassword}" class="form-control" placeholder="请输入用户密码"
+										type="password" />
+	                           </div>
+	                          
+	                        </div>
+						
+						    <div class="form-group">
+								<label class="col-sm-4 control-label">创建时间：</label>
+								<div class="col-sm-5">
+									<input type="text" class="Wdate" th:value="${#dates.format(user.createTime, 'yyyy-MM-dd HH:mm:ss')}" placeholder="" id="createTime" name="createTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+								</div>
+							</div> 
+							 <div class="form-group">
+								<div class="col-sm-9 col-sm-offset-5">
+								    <a class="btn btn-default waves-effect waves-light"
+									 onclick="returnList()">返回列表</a>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div> 
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+
+	<script type="text/javascript" src="/js/user/edit.js">	</script>
+</body>
+</html>

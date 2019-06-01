@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/js/plugins/bootstrap-fileinput/bootstrap-fileinput.css">
+<meta charset="utf-8"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" >
+							 <div class="form-group">
+		                        <label class="col-sm-1 control-label">轮播图片</label>
+		                        <div class="col-sm-12">
+		                            <input type="file" name="myfile" data-ref="url2"
+		                                class="col-sm-10 myfile" value=""   multiple /> <input type="hidden" 
+		                                name="url2" value="">
+		                        </div>
+		                    </div>
+		                 </form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<div th:include="include::footer"></div>
+	<!-- 图片 -->
+	<script type="text/javascript"
+		src="/js/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+	<script type="text/javascript"
+		src="/js/plugins/bootstrap-fileinput/zh.js"></script>
+	
+	<script type="text/javascript" src="/js/goods/sellwell/edit.js"></script>
+	<script type="text/javascript" src="/js/goods/image/image.js"></script>
+
+		
+
+
+
+</body>
+</html>

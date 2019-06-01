@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.CouponMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Coupon">
+		<id column="coupon_id" jdbcType="VARCHAR" property="couponId" />
+		<result column="coupon_uid" jdbcType="VARCHAR"
+			property="couponUid" />
+		<result column="coupon_coin" jdbcType="VARCHAR"
+			property="couponCoin" />
+		<result column="coupon_status" jdbcType="VARCHAR"
+			property="couponStatus" />
+		<result column="coupon_start" jdbcType="TIMESTAMP"
+			property="couponStart" />
+		<result column="coupon_end" jdbcType="TIMESTAMP"
+			property="couponEnd" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		coupon_id, coupon_uid, coupon_coin, coupon_status,
+		coupon_start, coupon_end,
+		update_time,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_coupon
+		where coupon_id = #{couponId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_coupon
+		where coupon_id = #{couponId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Coupon">
+		insert into store_coupon
+		(coupon_id, coupon_uid, coupon_coin,
+		coupon_status, coupon_start,
+		coupon_end,
+		update_time, create_time)
+		values
+		(#{couponId,jdbcType=VARCHAR}, #{couponUid,jdbcType=VARCHAR},
+		#{couponCoin,jdbcType=VARCHAR},
+		#{couponStatus,jdbcType=VARCHAR},
+		#{couponStart,jdbcType=TIMESTAMP}, #{couponEnd,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Coupon">
+		insert into store_coupon
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				coupon_id,
+			</if>
+			<if test="couponUid != null">
+				coupon_uid,
+			</if>
+			<if test="couponCoin != null">
+				coupon_coin,
+			</if>
+			<if test="couponStatus != null">
+				coupon_status,
+			</if>
+			<if test="couponStart != null">
+				coupon_start,
+			</if>
+			<if test="couponEnd != null">
+				coupon_end,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				#{couponId,jdbcType=VARCHAR},
+			</if>
+			<if test="couponUid != null">
+				#{couponUid,jdbcType=VARCHAR},
+			</if>
+			<if test="couponCoin != null">
+				#{couponCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="couponStatus != null">
+				#{couponStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="couponStart != null">
+				#{couponStart,jdbcType=TIMESTAMP},
+			</if>
+			<if test="couponEnd != null">
+				#{couponEnd,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Coupon">
+		update store_coupon
+		<set>
+			<if test="couponUid != null">
+				coupon_uid = #{couponUid,jdbcType=VARCHAR},
+			</if>
+			<if test="couponCoin != null">
+				coupon_coin = #{couponCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="couponStatus != null">
+				coupon_status = #{couponStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="couponStart != null">
+				coupon_start = #{couponStart,jdbcType=TIMESTAMP},
+			</if>
+			<if test="couponEnd != null">
+				coupon_end = #{couponEnd,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where coupon_id = #{couponId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Coupon">
+		update store_coupon
+		set coupon_uid =
+		#{couponUid,jdbcType=VARCHAR},
+		coupon_coin =
+		#{couponCoin,jdbcType=VARCHAR},
+		coupon_status =
+		#{couponStatus,jdbcType=VARCHAR},
+		coupon_start =
+		#{couponStart,jdbcType=TIMESTAMP},
+		coupon_end =
+		#{couponEnd,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where coupon_id =
+		#{couponId,jdbcType=VARCHAR}
+	</update>
+  <!-- 自定义 -->
+  <select id="selectByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from store_coupon where coupon_status = '0' and now() <![CDATA[<=]]>
+  	coupon_end and coupon_uid = #{couponUid}
+  </select>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.OrderGoodsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.store.model.OrderGoods">
+		<id column="ogd_id" jdbcType="VARCHAR" property="ogdId" />
+		<result column="ogd_gid" jdbcType="VARCHAR" property="ogdGid" />
+		<result column="ogd_gnum" jdbcType="INTEGER" property="ogdGnum" />
+		<result column="ogd_no" jdbcType="VARCHAR" property="ogdNo" />
+	</resultMap>
+	<resultMap id="OrderGoodsResultMap"
+		type="com.store.model.OrderGoods" extends="BaseResultMap">
+		<result column="goods_title" jdbcType="VARCHAR"
+			property="goodsTitle" />
+		<result column="goods_image" jdbcType="VARCHAR"
+			property="goodsImage" />
+		<result column="goods_price" jdbcType="VARCHAR"
+			property="goodsPrice" />
+		<result column="goods_type" jdbcType="VARCHAR"
+			property="goodsType" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ogd_id, ogd_gid, ogd_gnum, ogd_no
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_ogd
+		where ogd_id = #{ogdId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_ogd
+		where ogd_id = #{ogdId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.OrderGoods">
+		insert into store_ogd
+		(ogd_id,
+		ogd_gid, ogd_gnum,
+		ogd_no)
+		values
+		(#{ogdId,jdbcType=VARCHAR},
+		#{ogdGid,jdbcType=VARCHAR},
+		#{ogdGnum,jdbcType=INTEGER},
+		#{ogdNo,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.OrderGoods">
+		insert into store_ogd
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ogdId != null">
+				ogd_id,
+			</if>
+			<if test="ogdGid != null">
+				ogd_gid,
+			</if>
+			<if test="ogdGnum != null">
+				ogd_gnum,
+			</if>
+			<if test="ogdNo != null">
+				ogd_no,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ogdId != null">
+				#{ogdId,jdbcType=VARCHAR},
+			</if>
+			<if test="ogdGid != null">
+				#{ogdGid,jdbcType=VARCHAR},
+			</if>
+			<if test="ogdGnum != null">
+				#{ogdGnum,jdbcType=INTEGER},
+			</if>
+			<if test="ogdNo != null">
+				#{ogdNo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.OrderGoods">
+		update store_ogd
+		<set>
+			<if test="ogdGid != null">
+				ogd_gid = #{ogdGid,jdbcType=VARCHAR},
+			</if>
+			<if test="ogdGnum != null">
+				ogd_gnum = #{ogdGnum,jdbcType=INTEGER},
+			</if>
+			<if test="ogdNo != null">
+				ogd_no = #{ogdNo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ogd_id = #{ogdId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.OrderGoods">
+		update store_ogd
+		set ogd_gid =
+		#{ogdGid,jdbcType=VARCHAR},
+		ogd_gnum =
+		#{ogdGnum,jdbcType=INTEGER},
+		ogd_no =
+		#{ogdNo,jdbcType=VARCHAR}
+		where ogd_id =
+		#{ogdId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectByOrderNo" resultMap="OrderGoodsResultMap">
+		select ogd_gid, goods_title,
+		goods_image, goods_price, goods_type,
+		ogd_gnum from store_ogd as ogd
+		join store_goods as goods on
+		ogd.ogd_gid = goods.goods_id where
+		ogd_no = #{orderNo}
+	</select>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into store_ogd values
+		<foreach collection="list" item="item" separator=",">
+			(#{item.ogdId,jdbcType=VARCHAR},
+			#{item.ogdGid,jdbcType=VARCHAR},
+			#{item.ogdGnum,jdbcType=INTEGER},
+			#{item.ogdNo,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.CartMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Cart">
+		<id column="cart_id" jdbcType="VARCHAR" property="cartId" />
+		<result column="cart_uid" jdbcType="VARCHAR" property="cartUid" />
+		<result column="cart_gid" jdbcType="VARCHAR" property="cartGid" />
+		<result column="cart_num" jdbcType="INTEGER" property="cartNum" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<resultMap id="CartResultMap" extends="BaseResultMap"
+		type="com.store.model.resp.CartResp">
+		<result column="cart_uid" jdbcType="VARCHAR" property="cartUid" />
+		<result column="goods_title" jdbcType="VARCHAR"
+			property="goodsTitle" />
+		<result column="goods_price" jdbcType="VARCHAR"
+			property="goodsPrice" />
+		<result column="goods_inventory" jdbcType="INTEGER"
+			property="goodsInventory" />
+		<result column="goods_sales" jdbcType="INTEGER"
+			property="goodsSales" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		cart_id, cart_uid, cart_gid,
+		cart_num, create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_cart
+		where cart_id = #{cartId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_cart
+		where cart_id = #{cartId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Cart">
+		insert into store_cart
+		(cart_id, cart_uid, cart_gid,
+		cart_num,
+		create_time)
+		values
+		(#{cartId,jdbcType=VARCHAR},
+		#{cartUid,jdbcType=VARCHAR},
+		#{cartGid,jdbcType=VARCHAR},
+		#{cartNum,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Cart">
+		insert into store_cart
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cartId != null">
+				cart_id,
+			</if>
+			<if test="cartUid != null">
+				cart_uid,
+			</if>
+			<if test="cartGid != null">
+				cart_gid,
+			</if>
+			<if test="cartNum != null">
+				cart_num,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cartId != null">
+				#{cartId,jdbcType=VARCHAR},
+			</if>
+			<if test="cartUid != null">
+				#{cartUid,jdbcType=VARCHAR},
+			</if>
+			<if test="cartGid != null">
+				#{cartGid,jdbcType=VARCHAR},
+			</if>
+			<if test="cartNum != null">
+				#{cartNum,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Cart">
+		update store_cart
+		<set>
+			<if test="cartUid != null">
+				cart_uid = #{cartUid,jdbcType=VARCHAR},
+			</if>
+			<if test="cartGid != null">
+				cart_gid = #{cartGid,jdbcType=VARCHAR},
+			</if>
+			<if test="cartNum != null">
+				cart_num = #{cartNum,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where cart_id = #{cartId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Cart">
+		update store_cart
+		set cart_uid =
+		#{cartUid,jdbcType=VARCHAR},
+		cart_gid =
+		#{cartGid,jdbcType=VARCHAR},
+		cart_num =
+		#{cartNum,jdbcType=INTEGER},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where cart_id =
+		#{cartId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from store_cart where cart_gid in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="selectGoodsCount" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from
+		store_cart where cart_uid =
+		#{uid}
+	</select>
+	<delete id="deleteByUid" parameterType="java.lang.String">
+		delete from store_cart
+		where cart_uid = #{uid}
+	</delete>
+	<select id="selectByUidAndGid" resultMap="CartResultMap">
+		select cart_id, cart_gid, goods_title,
+		cart_num, goods_price,
+		goods_inventory,
+		goods_sales
+		from store_cart
+		join store_user on cart_uid = user_id
+		join store_goods on cart_gid = goods_id
+		where 1 = 1
+		<if test="uid != null">
+			and cart_uid = #{uid}
+		</if>
+		<if test="gid != null">
+			and cart_gid in
+			<foreach collection="gid" item="id" open="(" close=")"
+				separator=",">
+				#{id}
+			</foreach>
+		</if>
+	</select>
+</mapper>

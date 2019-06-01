@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.RechargeMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Recharge">
+		<id column="recharge_id" jdbcType="VARCHAR" property="rechargeId" />
+		<result column="recharge_coin" jdbcType="VARCHAR"
+			property="rechargeCoin" />
+		<result column="recharge_type" jdbcType="VARCHAR"
+			property="rechargeType" />
+		<result column="recharge_uid" jdbcType="VARCHAR"
+			property="rechargeUid" />
+		<result column="recharge_status" jdbcType="VARCHAR"
+			property="rechargeStatus" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
+		<result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		recharge_id, recharge_coin,
+		recharge_type, recharge_uid,
+		recharge_status,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_recharge
+		where recharge_id =
+		#{rechargeId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_recharge
+		where recharge_id =
+		#{rechargeId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Recharge">
+		insert into store_recharge
+		(recharge_id, recharge_coin,
+		recharge_type,
+		recharge_uid,
+		recharge_status,
+		create_time)
+		values
+		(#{rechargeId,jdbcType=VARCHAR},
+		#{rechargeCoin,jdbcType=VARCHAR},
+		#{rechargeType,jdbcType=VARCHAR},
+		#{rechargeUid,jdbcType=VARCHAR},
+		#{rechargeStatus,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Recharge">
+		insert into store_recharge
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rechargeId != null">
+				recharge_id,
+			</if>
+			<if test="rechargeCoin != null">
+				recharge_coin,
+			</if>
+			<if test="rechargeType != null">
+				recharge_type,
+			</if>
+			<if test="rechargeUid != null">
+				recharge_uid,
+			</if>
+			<if test="rechargeStatus != null">
+				recharge_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rechargeId != null">
+				#{rechargeId,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeCoin != null">
+				#{rechargeCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeType != null">
+				#{rechargeType,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeUid != null">
+				#{rechargeUid,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeStatus != null">
+				#{rechargeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Recharge">
+		update store_recharge
+		<set>
+			<if test="rechargeCoin != null">
+				recharge_coin =
+				#{rechargeCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeType != null">
+				recharge_type =
+				#{rechargeType,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeUid != null">
+				recharge_uid =
+				#{rechargeUid,jdbcType=VARCHAR},
+			</if>
+			<if test="rechargeStatus != null">
+				recharge_status =
+				#{rechargeStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time =
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where recharge_id = #{rechargeId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Recharge">
+		update store_recharge
+		set recharge_coin =
+		#{rechargeCoin,jdbcType=VARCHAR},
+		recharge_type =
+		#{rechargeType,jdbcType=VARCHAR},
+		recharge_uid =
+		#{rechargeUid,jdbcType=VARCHAR},
+		recharge_status =
+		#{rechargeStatus,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where recharge_id =
+		#{rechargeId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectByUid" resultMap="BaseResultMap">
+		select * from store_recharge
+		where recharge_uid = #{uid} and
+		recharge_status = '1' order by create_time desc
+	</select>
+	<select id="selectAll" parameterType="com.store.model.Recharge" resultMap="BaseResultMap">
+		select recharge_id, su.user_name, su.user_phone,
+		recharge_coin,
+		sr.create_time
+		from store_recharge sr join store_user su on (sr.recharge_uid = su.user_id)
+		
+		where
+		recharge_status = '1'
+		<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+			<if test="startDate != null and startDate != ''">
+				and sr.create_time <![CDATA[ >= ]]>
+				#{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and sr.create_time <![CDATA[ <= ]]>
+				#{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		<if test="userName != null and userName !=''">
+			and su.user_name like concat('%', #{userName}, '%')
+		</if>
+		<if test="userPhone != null and userPhone !=''">
+			and su.user_phone like concat('%', #{userPhone}, '%')
+		</if>
+	</select>
+</mapper>

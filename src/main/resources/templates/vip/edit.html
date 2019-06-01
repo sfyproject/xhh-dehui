@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						 <input id="vipId" th:value="${vip.vipId}"  name="vipId" class="form-control" type="hidden" ></input>
+							 <div class="form-group">
+	                           <label class="col-sm-4 control-label">会员类型：</label>
+	                           <div class="col-sm-5">
+	                               <select id="vipType" name="vipType" th:value="${vip.vipType}" class="selectpicker show-tick form-control" title="请选择一项" data-live-search="true" style="color: blue;">
+	                                       <option value="1" th:selected="${vip.vipType == '1'}"> 黑铁会员</option>
+	                                       <option value="2" th:selected="${vip.vipType == '2'}"> 白银会员</option>
+	                                       <option value="3" th:selected="${vip.vipType == '3'}"> 黄金会员</option>
+	                               </select>
+	                           </div>
+	                        </div> 
+							 <div class="form-group">
+								<label class="col-sm-4 control-label">会员价格：</label>
+								<div class="col-sm-5">
+									<input id="vipPrice"  th:value="${vip.vipPrice}" name="vipPrice" class="form-control"  type="text"></input>
+								</div>
+							</div> 
+							 <div class="form-group">
+								<label class="col-sm-4 control-label">折扣：</label>
+								<div class="col-sm-5 ">
+									<input id="vipDiscount" th:value="${vip.vipDiscount}"  name="vipDiscount" class="form-control" type="text" ></input>
+								</div>
+							</div> 
+							  <div class="form-group">
+								<label class="col-sm-4 control-label">会员时间：</label>
+								<div class="col-sm-5">
+									<input type="text" class="Wdate" th:value="${#dates.format(vip.vipStart, 'yyyy-MM-dd HH:mm:ss')}"  placeholder="" id="vipStart" name="vipStart" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" style="width: 46%;">
+									--
+									<input type="text" class="Wdate"  th:value="${#dates.format(vip.vipEnd, 'yyyy-MM-dd HH:mm:ss')}" placeholder="" id="vipEnd" name="vipEnd" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" style="width: 46%;">
+								</div>
+							 </div>  
+							 <div class="form-group">
+								<div class="col-sm-9 col-sm-offset-5">
+								    <a class="btn btn-default waves-effect waves-light"
+									 onclick="returnList()">返回列表</a>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div> 
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+
+	<script type="text/javascript" src="/js/vip/edit.js">	</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+	       <div class="col-sm-12 col-sm-offset-1">
+		    <form class="bs-example bs-example-form" role="form" >
+				          <div class="form-group col-sm-2">
+			        		  <div class="input-group">
+						            <span class="input-group-addon">用户名</span>
+						            <input id="userName" type="text" class="form-control" name="userName" width=""
+									placeholder="请输入用户姓名"/>
+			      			  </div>
+		      			  </div>
+				          <div class="form-group col-sm-2">
+			        		  <div class="input-group">
+						            <span class="input-group-addon">手机号</span>
+						            <input id="userPhone" type="text" class="form-control" name="userPhone" width=""
+									placeholder="请输入手机号"/>
+			      			  </div>
+		      			  </div>
+				          <div class="form-group col-sm-2">
+			        		  <div class="input-group">
+						            <span class="input-group-addon">会员类型:</span>
+						             <select id="vipType" name="vipType" data-style="btn-info" class="selectpicker show-tick form-control" data-live-search="true" style="color: blue;">
+	                                       <option value="">请选择 </option>
+                                      	   <option value="0">月会员</option>
+	                                       <option value="1">季会员</option>
+	                                       <option value="2">年会员</option>
+	                                </select>
+			      			  </div>
+		      			  </div>
+		      			  
+		    </form>
+		    <strong>日期范围:</strong> 
+		    <input type="text"
+				onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}' })"
+				id="startDate"  class="input-text Wdate"
+				style="width: 8%;"> 
+			-- 
+			<input type="text"
+				onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'%y-%M-%d' })"
+				id="endDate"  class="input-text Wdate"
+				style="width: 8%;">
+		    <button class="btn btn-success" type="button" onclick="reLoad()">查询</button>
+		    <button  type="button" class="btn btn-warning "
+				onclick="reset()">
+				<i class="fa fa-refresh" aria-hidden="true"></i>重置
+			</button>
+		</div>
+	
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+						<div id="exampleToolbar" role="group">
+						<!--<button shiro:hasPermission="back:vip:add" type="button"
+							class="btn  btn-primary" onclick="add()">
+							<i class="fa fa-plus hidden" aria-hidden="true"></i>添加
+						</button>
+				 		<button shiro:hasPermission="back:api:vip:batchRemove" type="button" class="btn  btn-danger"
+							onclick="batchRemove()">
+							<i class="fa fa-trash" aria-hidden="true"></i>删除
+						</button> -->
+						</div>
+							<table id="exampleTable" data-mobile-responsive="true">
+							</table>
+						
+				</div>
+			</div>
+		</div>
+		<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+		<div>
+			<script type="text/javascript">
+				var s_edit_h = 'hidden';
+				var s_remove_h = 'hidden';
+			</script>
+		</div>
+		<div shiro:hasPermission="back:vip:edit">
+			<script type="text/javascript">
+				s_edit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="back:api:vip:delete">
+			<script type="text/javascript">
+				var s_remove_h = '';
+			</script>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript"
+		src="/js/vip/list.js"></script>
+</body>
+</html>

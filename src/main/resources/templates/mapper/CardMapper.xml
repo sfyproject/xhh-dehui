@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.CardMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Card">
+		<id column="card_id" jdbcType="VARCHAR" property="cardId" />
+		<result column="card_status" jdbcType="VARCHAR"
+			property="cardStatus" />
+		<result column="card_coin" jdbcType="VARCHAR"
+			property="cardCoin" />
+		<result column="card_uid" jdbcType="VARCHAR" property="cardUid" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		card_id, card_status, card_coin, card_uid, create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_card
+		where card_id = #{cardId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_card
+		where card_id = #{cardId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Card">
+		insert into store_card
+		(card_id, card_status, card_coin,
+		card_uid, create_time)
+		values
+		(#{cardId,jdbcType=VARCHAR}, #{cardStatus,jdbcType=VARCHAR},
+		#{cardCoin,jdbcType=VARCHAR},
+		#{cardUid,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Card">
+		insert into store_card
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cardId != null">
+				card_id,
+			</if>
+			<if test="cardStatus != null">
+				card_status,
+			</if>
+			<if test="cardCoin != null">
+				card_coin,
+			</if>
+			<if test="cardUid != null">
+				card_uid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cardId != null">
+				#{cardId,jdbcType=VARCHAR},
+			</if>
+			<if test="cardStatus != null">
+				#{cardStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="cardCoin != null">
+				#{cardCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="cardUid != null">
+				#{cardUid,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Card">
+		update store_card
+		<set>
+			<if test="cardStatus != null">
+				card_status = #{cardStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="cardCoin != null">
+				card_coin = #{cardCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="cardUid != null">
+				card_uid = #{cardUid,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where card_id = #{cardId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Card">
+		update store_card
+		set card_status =
+		#{cardStatus,jdbcType=VARCHAR},
+		card_coin =
+		#{cardCoin,jdbcType=VARCHAR},
+		card_uid = #{cardUid,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where card_id =
+		#{cardId,jdbcType=VARCHAR}
+	</update>
+</mapper>

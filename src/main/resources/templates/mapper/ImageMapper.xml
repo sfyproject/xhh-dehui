@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.ImageMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Image">
+		<id column="image_id" jdbcType="VARCHAR" property="imageId" />
+		<result column="image_link" jdbcType="VARCHAR"
+			property="imageLink" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		image_id, image_link
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_image
+		where image_id =
+		#{imageId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_image
+		where image_id = #{imageId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Image">
+		insert into store_image
+		(image_id, image_link)
+		values
+		(#{imageId,jdbcType=VARCHAR},
+		#{imageLink,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Image">
+		insert into store_image
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="imageId != null">
+				image_id,
+			</if>
+			<if test="imageLink != null">
+				image_link,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="imageId != null">
+				#{imageId,jdbcType=VARCHAR},
+			</if>
+			<if test="imageLink != null">
+				#{imageLink,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Image">
+		update store_image
+		<set>
+			<if test="imageLink != null">
+				image_link = #{imageLink,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where image_id = #{imageId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Image">
+		update store_image
+		set image_link =
+		#{imageLink,jdbcType=VARCHAR}
+		where image_id =
+		#{imageId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectImageLink" resultType="java.lang.String">
+		select image_link
+		from
+		store_image
+	</select>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select *
+		from
+		store_image
+	</select>
+</mapper>

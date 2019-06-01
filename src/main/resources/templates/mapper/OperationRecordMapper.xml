@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.store.dao.OperationRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.store.model.OperationRecord" >
+    <id column="operation_record_id" property="operationRecordId" jdbcType="VARCHAR" />
+    <result column="operation_record_aid" property="operationRecordAid" jdbcType="VARCHAR" />
+    <result column="operation_record_gid" property="operationRecordGid" jdbcType="VARCHAR" />
+    <result column="operation_record_type" property="operationRecordType" jdbcType="VARCHAR" />
+    <result column="operation_record_goodsNum" property="operationRecordGoodsnum" jdbcType="INTEGER" />
+    <result column="operation_record_name" property="operationRecordName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    operation_record_id, operation_record_aid, operation_record_gid, operation_record_type, 
+    operation_record_goodsNum, operation_record_name, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_operation_record
+    where operation_record_id = #{operationRecordId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from store_operation_record
+    where operation_record_id = #{operationRecordId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.store.model.OperationRecord" >
+    insert into store_operation_record (operation_record_id, operation_record_aid, 
+      operation_record_gid, operation_record_type, 
+      operation_record_goodsNum, operation_record_name, 
+      create_time)
+    values (#{operationRecordId,jdbcType=VARCHAR}, #{operationRecordAid,jdbcType=VARCHAR}, 
+      #{operationRecordGid,jdbcType=VARCHAR}, #{operationRecordType,jdbcType=VARCHAR}, 
+      #{operationRecordGoodsnum,jdbcType=INTEGER}, #{operationRecordName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.store.model.OperationRecord" >
+    insert into store_operation_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operationRecordId != null" >
+        operation_record_id,
+      </if>
+      <if test="operationRecordAid != null" >
+        operation_record_aid,
+      </if>
+      <if test="operationRecordGid != null" >
+        operation_record_gid,
+      </if>
+      <if test="operationRecordType != null" >
+        operation_record_type,
+      </if>
+      <if test="operationRecordGoodsnum != null" >
+        operation_record_goodsNum,
+      </if>
+      <if test="operationRecordName != null" >
+        operation_record_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operationRecordId != null" >
+        #{operationRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordAid != null" >
+        #{operationRecordAid,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordGid != null" >
+        #{operationRecordGid,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordType != null" >
+        #{operationRecordType,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordGoodsnum != null" >
+        #{operationRecordGoodsnum,jdbcType=INTEGER},
+      </if>
+      <if test="operationRecordName != null" >
+        #{operationRecordName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.store.model.OperationRecord" >
+    update store_operation_record
+    <set >
+      <if test="operationRecordAid != null" >
+        operation_record_aid = #{operationRecordAid,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordGid != null" >
+        operation_record_gid = #{operationRecordGid,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordType != null" >
+        operation_record_type = #{operationRecordType,jdbcType=VARCHAR},
+      </if>
+      <if test="operationRecordGoodsnum != null" >
+        operation_record_goodsNum = #{operationRecordGoodsnum,jdbcType=INTEGER},
+      </if>
+      <if test="operationRecordName != null" >
+        operation_record_name = #{operationRecordName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where operation_record_id = #{operationRecordId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.store.model.OperationRecord" >
+    update store_operation_record
+    set operation_record_aid = #{operationRecordAid,jdbcType=VARCHAR},
+      operation_record_gid = #{operationRecordGid,jdbcType=VARCHAR},
+      operation_record_type = #{operationRecordType,jdbcType=VARCHAR},
+      operation_record_goodsNum = #{operationRecordGoodsnum,jdbcType=INTEGER},
+      operation_record_name = #{operationRecordName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where operation_record_id = #{operationRecordId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" 
+  			resultMap="BaseResultMap" 
+  			parameterType="com.store.model.OperationRecord">
+  	select s1.*, s2.goods_title 
+  		from store_operation_record s1 
+ 		left join store_goods s2 on 
+ 		(s1.operation_record_gid = s2.goods_id)
+ 		where 1 = 1
+ 		<if test="operationRecordName != null and operationRecordName !=''" >
+       		and s1.operation_record_name like concat('%', #{operationRecordName}, '%')
+      	</if>
+      	<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+			<if test="startDate != null and startDate != ''">
+				and s1.create_time <![CDATA[ >= ]]>
+				#{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and s1.create_time <![CDATA[ <= ]]>
+				#{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+  </select>
+</mapper>

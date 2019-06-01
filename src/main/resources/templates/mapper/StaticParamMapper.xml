@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.store.dao.StaticParamMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.StaticParam" >
+		<id column="static_param_name" property="staticParamName" jdbcType="VARCHAR" />
+		<id column="static_param_value" property="staticParamValue"  jdbcType="VARCHAR"/>
+		<id column="static_param_value_desc" property="staticParamValueDesc" jdbcType="VARCHAR"/>
+		<id column="static_param_value_order" property="staticParamValueOrder"  jdbcType="INTEGER"/>
+		<id column="user_id" property="userId" jdbcType="VARCHAR" />
+		<id column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		static_param_name, static_param_value,
+		static_param_value_desc, static_param_value_order, user_id,
+		create_date
+	</sql>
+
+	<!-- 新增 -->
+	<select id="getListByCondition" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from s_static_param
+		where static_param_name = #{staticParamName,jdbcType=VARCHAR}
+	</select>
+</mapper>

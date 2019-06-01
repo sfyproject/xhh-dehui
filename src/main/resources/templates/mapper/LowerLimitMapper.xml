@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.store.dao.LowerLimitMapper" >
+  <resultMap id="BaseResultMap" type="com.store.model.LowerLimit" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="lower_limit" property="lowerLimit" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="admin_username" property="adminUsername" jdbcType="VARCHAR" />
+    <result column="goods_title" property="goodsTitle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, admin_id, goods_id, lower_limit, create_time, admin_username, goods_title
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_goods_lower_limit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from store_goods_lower_limit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.store.model.LowerLimit" >
+    insert into store_goods_lower_limit (id, admin_id, goods_id, 
+      lower_limit, create_time, admin_username, 
+      goods_title)
+    values (#{id,jdbcType=VARCHAR}, #{adminId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{lowerLimit,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{adminUsername,jdbcType=VARCHAR}, 
+      #{goodsTitle,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.store.model.LowerLimit" >
+    insert into store_goods_lower_limit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="lowerLimit != null" >
+        lower_limit,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="adminUsername != null" >
+        admin_username,
+      </if>
+      <if test="goodsTitle != null" >
+        goods_title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="lowerLimit != null" >
+        #{lowerLimit,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminUsername != null" >
+        #{adminUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTitle != null" >
+        #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.store.model.LowerLimit" >
+    update store_goods_lower_limit
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="lowerLimit != null" >
+        lower_limit = #{lowerLimit,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminUsername != null" >
+        admin_username = #{adminUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsTitle != null" >
+        goods_title = #{goodsTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.store.model.LowerLimit" >
+    update store_goods_lower_limit
+    set admin_id = #{adminId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      lower_limit = #{lowerLimit,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      admin_username = #{adminUsername,jdbcType=VARCHAR},
+      goods_title = #{goodsTitle,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getLowerLimit" resultMap="BaseResultMap" parameterType="com.store.model.LowerLimit" >
+  	SELECT * from store_goods_lower_limit
+		<where>
+			<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+				<if test="startDate != null and startDate != ''">
+					and create_time <![CDATA[ >= ]]>
+					#{startDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="endDate != null and endDate != ''">
+					and create_time <![CDATA[ <= ]]>
+					#{endDate,jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="goodsTitle != null and goodsTitle !=''">
+				and goods_title like concat('%', #{goodsTitle}, '%')
+			</if>
+			<if test="adminUsername != null and adminUsername !=''">
+				and admin_username like concat('%', #{adminUsername}, '%')
+			</if>
+		</where>
+		order by create_time desc
+  </select>
+  
+  <insert id="batchInsert" parameterType="java.util.List"
+		useGeneratedKeys="true">
+	  insert into store_goods_lower_limit (
+		  id, 
+		  admin_id, 
+		  goods_id, 
+	      lower_limit, 
+	      create_time,
+	      admin_username, 
+          goods_title
+	      )
+		VALUES
+		<foreach collection="list" separator="," item="item">
+			(#{item.id},
+			#{item.adminId},
+			#{item.goodsId},
+			#{item.lowerLimit},
+			#{item.createTime},
+			#{item.adminUsername},
+			#{item.goodsTitle}
+			)
+		</foreach>
+	</insert>
+	
+</mapper>

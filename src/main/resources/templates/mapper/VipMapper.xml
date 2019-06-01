@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.VipMapper">
+    <resultMap id="BaseResultMap" type="com.store.model.Vip">
+		<id column="vip_id" jdbcType="VARCHAR" property="vipId" />
+		<result column="vip_uid" jdbcType="VARCHAR" property="vipUid" />
+		<result column="vip_price" jdbcType="VARCHAR"
+			property="vipPrice" />
+		<result column="vip_discount" jdbcType="DOUBLE"
+			property="vipDiscount" />
+		<result column="vip_type" jdbcType="VARCHAR" property="vipType" />
+		<result column="vip_status" jdbcType="VARCHAR"
+			property="vipStatus" />
+		<result column="vip_start" jdbcType="TIMESTAMP"
+			property="vipStart" />
+		<result column="vip_end" jdbcType="TIMESTAMP" property="vipEnd" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+    <resultMap id="BackResultMap" extends="BaseResultMap" type="com.store.model.Vip">
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		vip_id, vip_uid, vip_price, vip_discount, vip_type,
+		vip_status, vip_start,
+		vip_end, create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_vip
+		where vip_id = #{vipId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_vip
+		where vip_id = #{vipId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Vip">
+		insert into store_vip (vip_id,
+		vip_uid, vip_price,
+		vip_discount, vip_type, vip_status, vip_start,
+		vip_end, create_time)
+		values (#{vipId,jdbcType=VARCHAR},
+		#{vipUid,jdbcType=VARCHAR},
+		#{vipPrice,jdbcType=VARCHAR},
+		#{vipDiscount,jdbcType=DOUBLE}, #{vipType,jdbcType=VARCHAR},
+		#{vipStatus,jdbcType=VARCHAR},
+		#{vipStart,jdbcType=TIMESTAMP},
+		#{vipEnd,jdbcType=TIMESTAMP},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.store.model.Vip">
+		insert into store_vip
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="vipId != null">
+				vip_id,
+			</if>
+			<if test="vipUid != null">
+				vip_uid,
+			</if>
+			<if test="vipPrice != null">
+				vip_price,
+			</if>
+			<if test="vipDiscount != null">
+				vip_discount,
+			</if>
+			<if test="vipType != null">
+				vip_type,
+			</if>
+			<if test="vipStatus != null">
+				vip_status,
+			</if>
+			<if test="vipStart != null">
+				vip_start,
+			</if>
+			<if test="vipEnd != null">
+				vip_end,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="vipId != null">
+				#{vipId,jdbcType=VARCHAR},
+			</if>
+			<if test="vipUid != null">
+				#{vipUid,jdbcType=VARCHAR},
+			</if>
+			<if test="vipPrice != null">
+				#{vipPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="vipDiscount != null">
+				#{vipDiscount,jdbcType=DOUBLE},
+			</if>
+			<if test="vipType != null">
+				#{vipType,jdbcType=VARCHAR},
+			</if>
+			<if test="vipStatus != null">
+				#{vipStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="vipStart != null">
+				#{vipStart,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vipEnd != null">
+				#{vipEnd,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Vip">
+		update store_vip
+		<set>
+			<if test="vipUid != null">
+				vip_uid = #{vipUid,jdbcType=VARCHAR},
+			</if>
+			<if test="vipPrice != null">
+				vip_price = #{vipPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="vipDiscount != null">
+				vip_discount = #{vipDiscount,jdbcType=DOUBLE},
+			</if>
+			<if test="vipType != null">
+				vip_type = #{vipType,jdbcType=VARCHAR},
+			</if>
+			<if test="vipStatus != null">
+				vip_status = #{vipStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="vipStart != null">
+				vip_start = #{vipStart,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vipEnd != null">
+				vip_end = #{vipEnd,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where vip_id = #{vipId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Vip">
+		update store_vip
+		set vip_uid =
+		#{vipUid,jdbcType=VARCHAR},
+		vip_price = #{vipPrice,jdbcType=VARCHAR},
+		vip_discount = #{vipDiscount,jdbcType=DOUBLE},
+		vip_type =
+		#{vipType,jdbcType=VARCHAR},
+		vip_status =
+		#{vipStatus,jdbcType=VARCHAR},
+		vip_start =
+		#{vipStart,jdbcType=TIMESTAMP},
+		vip_end = #{vipEnd,jdbcType=TIMESTAMP},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where vip_id =
+		#{vipId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectByUid" resultMap="BackResultMap">
+		select user_name, vip_price, vip_discount, vip_type, vip_start, vip_end,
+		store_vip.create_time
+		from store_vip join store_user on user_id = vip_uid where vip_uid = #{vipUid}
+		and vip_status = '1' and now() <![CDATA[<=]]> vip_end
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.store.model.Vip">
+		SELECT v.*,u.user_name as userName ,u.user_phone AS userPhone,DATEDIFF(v.vip_end,v.vip_start)as term FROM store_vip v INNER JOIN store_user u on (v.vip_uid=u.user_id) 
+		WHERE 
+		v.vip_end<![CDATA[>]]> NOW() and vip_status = '1'
+		<if test="userName != null and userName !=''">
+			and u.user_name like concat('%', #{userName}, '%')
+		</if>
+		<if test="userPhone != null and userPhone !=''">
+			and u.user_phone like concat('%', #{userPhone}, '%')
+		</if>
+		<if test="vipType != null and vipType !=''">
+			and v.vip_type =#{vipType,jdbcType=TIMESTAMP}
+		</if>
+		<if
+			test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+			<if test="startDate != null and startDate != ''">
+				and v.create_time <![CDATA[ >= ]]>
+				#{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and v.create_time <![CDATA[ <= ]]>
+				#{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		
+	</select>
+	
+	<!-- 批量删除 -->
+     <delete id="batchRemove">
+        delete from store_vip where vip_id in (
+        <foreach collection="list" item="id" separator=",">
+            #{id}
+        </foreach>
+        )  
+     </delete>
+</mapper>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="/js/plugins/zTree/v3/css/zTreeStyle/zTreeStyle.css">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<script>
+function reloadPage(){
+  location.reload()
+}
+</script>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div style="float: right;">
+		    <button class="btn btn-warning btn-sm" onclick="reloadPage()"><span class="glyphicon glyphicon-refresh" ></span>
+	        </button>
+        </div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">
+	                          <label class="col-sm-4 control-label">库存下限：</label>
+	                           <div class="col-sm-5">
+	                           		<input placeholder="请输入商品下限" id="lowerLimit"  name="lowerLimit" class="form-control" ></input>
+	                           </div>
+	                        </div>
+							<div class="form-group">
+	                          <label class="col-sm-4 control-label">商品：</label>
+	                           <div class="col-sm-5" >
+	                           		 <ul id="treeDemo" class="ztree"></ul>
+	                           </div>
+	                        </div>
+				
+							 <div class="form-group">
+								<div class="col-sm-9 col-sm-offset-5">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div> 
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+
+	<script type="text/javascript" src="/js/goods/goodsManagement/positioning.js">	</script>
+	<script type="text/javascript" src="/js/plugins/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.ShareMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Share">
+		<id column="share_id" jdbcType="VARCHAR" property="shareId" />
+		<result column="share_coin" jdbcType="VARCHAR"
+			property="shareCoin" />
+		<result column="share_status" jdbcType="VARCHAR"
+			property="shareStatus" />
+		<result column="share_type" jdbcType="VARCHAR"
+			property="shareType" />
+		<result column="share_xuid" jdbcType="VARCHAR"
+			property="shareXuid" />
+		<result column="share_uid" jdbcType="VARCHAR"
+			property="shareUid" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		share_id, share_coin, share_status, share_type, share_xuid,
+		share_uid,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_share
+		where share_id = #{shareId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_share
+		where share_id = #{shareId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Share">
+		insert into store_share
+		(share_id, share_coin, share_status,
+		share_type, share_xuid, share_uid,
+		create_time)
+		values (#{shareId,jdbcType=VARCHAR},
+		#{shareCoin,jdbcType=VARCHAR},
+		#{shareStatus,jdbcType=VARCHAR},
+		#{shareType,jdbcType=VARCHAR}, #{shareXuid,jdbcType=VARCHAR},
+		#{shareUid,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Share">
+		insert into store_share
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="shareId != null">
+				share_id,
+			</if>
+			<if test="shareCoin != null">
+				share_coin,
+			</if>
+			<if test="shareStatus != null">
+				share_status,
+			</if>
+			<if test="shareType != null">
+				share_type,
+			</if>
+			<if test="shareXuid != null">
+				share_xuid,
+			</if>
+			<if test="shareUid != null">
+				share_uid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="shareId != null">
+				#{shareId,jdbcType=VARCHAR},
+			</if>
+			<if test="shareCoin != null">
+				#{shareCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="shareStatus != null">
+				#{shareStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="shareType != null">
+				#{shareType,jdbcType=VARCHAR},
+			</if>
+			<if test="shareXuid != null">
+				#{shareXuid,jdbcType=VARCHAR},
+			</if>
+			<if test="shareUid != null">
+				#{shareUid,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Share">
+		update store_share
+		<set>
+			<if test="shareCoin != null">
+				share_coin = #{shareCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="shareStatus != null">
+				share_status = #{shareStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="shareType != null">
+				share_type = #{shareType,jdbcType=VARCHAR},
+			</if>
+			<if test="shareXuid != null">
+				share_xuid = #{shareXuid,jdbcType=VARCHAR},
+			</if>
+			<if test="shareUid != null">
+				share_uid = #{shareUid,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where share_id = #{shareId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Share">
+		update store_share
+		set share_coin =
+		#{shareCoin,jdbcType=VARCHAR},
+		share_status =
+		#{shareStatus,jdbcType=VARCHAR},
+		share_type =
+		#{shareType,jdbcType=VARCHAR},
+		share_xuid =
+		#{shareXuid,jdbcType=VARCHAR},
+		share_uid =
+		#{shareUid,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where share_id =
+		#{shareId,jdbcType=VARCHAR}
+	</update>
+  <!-- 自定义 -->
+  <delete id="deleteAll">
+  	delete from store_share
+  </delete>
+  <select id="selectByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from store_share where share_status = '1' and share_uid = #{shareUid} 
+  	order by create_time desc
+  </select>
+</mapper>

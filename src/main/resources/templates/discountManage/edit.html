@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<input id="couponId" name="couponId" type="hidden" th:value="${discountCoupon.couponId}"/>
+						 <div class="form-group">
+								<label class="form-label col-xs-4 col-sm-3"><span style="color: red;margin-left: 4px">*</span>优惠券名称：</label>
+								<div class="formControls col-xs-8 col-sm-6">
+								<select name="couponName" id="couponName" tabindex="-1" class="select-box form-control" data-placeholder="请选择..." style="width: 40%" >
+										<option  th:selected="${discountCoupon.couponName eq couponType.couponName}" th:each="couponType:${couponTypeList}"   th:value="${couponType.couponName}" th:text="${couponType.couponName}" ></option>
+								</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="form-label col-xs-4 col-sm-3"><span style="color: red;margin-left: 4px">*</span>面值：</label>
+								<div class="formControls col-xs-8 col-sm-6">
+									<input id="facePrice" name="facePrice" th:value="${discountCoupon.facePrice}/100" class="form-control" type="text" readonly="readonly"  style="float: left ;width: 40%"/>
+									<span class="form-control">元</span>
+								</div>
+							</div>
+							<div class="form-group">
+	                          <label class="form-label col-xs-4 col-sm-3"><span style="color: red;margin-left: 4px">*</span>购买价格：</label>
+	                           <div class="formControls col-xs-8 col-sm-6">
+	                              <input id="payPrice" name="payPrice" class="form-control" th:value="${discountCoupon.payPrice}/100"
+										type="text" style="float: left ;width: 40%"/><span class="form-control">元</span>
+	                           </div>
+	                        </div>
+	                        <div class="form-group">
+	                          <label class="form-label col-xs-4 col-sm-3"><span style="color: red;margin-left: 4px">*</span>来源：</label>
+	                           <div class="formControls col-xs-8 col-sm-6">
+	                             <select name="source" id="source" tabindex="-1" class="select-box form-control" data-placeholder="请选择..." style="width: 40%" >
+										<option  th:selected="${discountCoupon.source == staticParam.staticParamValue}" th:each="staticParam:${sourceList}"  th:value="${staticParam.staticParamValue}" th:text="${staticParam.staticParamValueDesc}">请选择</option>
+									</select>
+								</div>
+	                        </div>
+	                        <div class="form-group">
+	                          <label class="form-label col-xs-4 col-sm-3"><span style="color: red;margin-left: 4px">*</span>生效日期：</label>
+								<div class="formControls col-xs-8 col-sm-6">
+									<input type="text"  th:value="${#dates.format(discountCoupon.startTime, 'yyyy-MM-dd HH:mm:ss')}"   onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'endTime\')||\'%y-%M-%d %H:%m:%s\'}',dateFmt:'yyyy-MM-dd HH:mm:ss' })" id="startTime" name="startTime" class="input-text Wdate form-control" style="width:60%;" required="required">
+								</div>
+	                        </div>
+	                        
+	                        <div class="form-group">
+	                          <label class="form-label col-xs-4 col-sm-3"><span style="color: red;margin-left: 4px">*</span>失效日期：</label>
+								<div class="formControls col-xs-8 col-sm-6">
+									<input type="text"  th:value="${#dates.format(discountCoupon.endTime, 'yyyy-MM-dd HH:mm:ss')}"   onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'startTime\')}',dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="endTime" name="endTime" class="input-text Wdate form-control" style="width:60%;" required="required">
+								</div>
+	                        </div>
+	                        <div class="form-group">
+	                          <label class="form-label col-xs-4 col-sm-3"><span style="color: red;margin-left: 4px">*</span>开关：</label>
+								<div class="formControls col-xs-8 col-sm-6">
+									<select name="swit" id="swit" tabindex="-1" class="select-box form-control" data-placeholder="请选择..." style="width: 40%" >
+										<option  th:selected="${discountCoupon.swit eq staticParam.staticParamValueDesc}" th:each="staticParam:${switList}"  th:value="${staticParam.staticParamValueDesc}" th:text="${staticParam.staticParamValueDesc}" value="1">请选择</option>
+									</select>
+								</div>
+	                        </div>
+							   
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-5" >
+								    <a class="btn btn-default waves-effect waves-light"
+									 onclick="returnList()">返回列表</a>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/discount/edit.js">	</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<title>菜多多管理系统</title>
+<meta name="keywords" content="菜多多管理系统" />
+<meta name="description" content="菜多多管理系统" />
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+<link href="/css/animate.css" rel="stylesheet" />
+<link href="/css/style.css" rel="stylesheet" />
+<link href="/css/login.css" rel="stylesheet" />
+<!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+<script>
+	if (window.top !== window.self) {
+		window.top.location = window.location;
+	}
+</script>
+
+</head>
+
+<body class="signin">
+	<div class="signinpanel">
+		<div class="row">
+			<div class="col-sm-7">
+				<div class="signin-info">
+					<div class="logopanel m-b">
+					<!-- <img alt="" src="/img/cdd1.jpg" style="height: 50px;width: 80px;" > -->
+						 <h1>[菜多多管理系统]</h1> 
+						<!-- <h1><img alt="" src="/img/cdd2.jpg" style="height: 50px;width: 250px;" ></h1> -->
+					</div>
+					<div class="m-b"></div>
+					<h4>
+						 <strong>欢迎使用菜多多管理系统</strong>
+					</h4>
+					<ul class="m-b">
+						<li><i class="fa fa-arrow-circle-o-right m-r-xs"></i>
+							springBoot</li>
+						<li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> mybatis</li>
+						<li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> shiro</li>
+						<li><i class="fa fa-arrow-circle-o-right m-r-xs"></i>
+							thymeleaf</li>
+						<li><i class="fa fa-arrow-circle-o-right m-r-xs"></i>
+							bootstrap</li>
+
+					</ul>
+
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<form id="signupForm">
+					<h4 class="no-margins">登录：</h4>
+					<p class="m-t-md">欢迎登录菜多多后台管理系统</p>
+					<input type="text" name="adminUsername" class="form-control uname"
+						placeholder="用户名" /> <input type="password" name="adminPassword"
+						class="form-control pword m-b" placeholder="密码" /> 
+					<button class="btn btn-success btn-block">登录</button>
+				</form>
+			</div>
+		</div>
+		<div class="signup-footer">
+			<div class="pull-left">&copy; 2019 版权所有. 菜多多
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- 全局js -->
+	<script src="/js/plugins/jquery/jquery.min.js"></script>
+	<script src="/bootstrap/bootstrap.min.js"></script>
+
+	<!-- 自定义js -->
+	<script src="/js/util/content.js"></script>
+
+	<!-- jQuery Validation plugin javascript-->
+	<script src="/js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="/js/plugins/validate/messages_zh.min.js"></script>
+	<script src="/js/plugins/layer/layer.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			validateRule();
+			//$("#signupForm").validate();
+		});
+		$.validator.setDefaults({
+			submitHandler : function() {
+				login();
+			}
+		});
+
+		function login() {
+			var a=$('#signupForm').serialize();
+			$.ajax({
+				type : "POST",
+				url : "/back/api/sso/login",
+				data : $('#signupForm').serialize(),
+				success : function(ret) {
+					if (ret.ret == '0') {
+						/* parent.location.href = ret.data; */
+						window.location.href=ret.data;
+					} else {
+						layer.msg(ret.msg);
+					}
+				}
+			});
+		}
+
+		function validateRule() {
+			var icon = '<i class="fa fa-times-circle"></i> ';
+			$("#signupForm").validate({
+				rules : {
+					adminUsername : {
+						required : true
+					},
+					adminPassword : {
+						required : true
+					}
+				},
+				messages : {
+					adminUsername : {
+						required : icon + "请输入您的用户名",
+					},
+					adminPassword : {
+						required : icon + "请输入您的密码",
+					}
+				}
+			})
+		}
+	</script>
+</body>
+
+
+
+
+</html>

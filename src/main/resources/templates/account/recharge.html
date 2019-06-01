@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/js/plugins/bootstrap-fileinput/bootstrap-fileinput.css">
+<meta charset="utf-8"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<input id="userId" name="userId" type="hidden" th:value="${user.userId}"/>	
+							<div class="form-group col-sm-2" >
+			        		  <div class="input-group" style="text-align: center">
+						            <span class="input-group-addon">账户余额：</span>
+						            <input id="userWallet" type="text" class="form-control" name="userWallet" style="width:40%"  th:value="${user.userWallet}"/>
+			      			  </div>
+		      			   </div>
+							<div class="form-group col-sm-2">
+			        		  <div class="input-group" style="text-align: center">
+						            <span class="input-group-addon">充值金额：</span>
+						            <input id="rechargeMoney" type="text" class="form-control" name="rechargeMoney" style="width:40%"	placeholder="请输入充值金额"/>
+			      			  </div>
+		      			   </div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-5" style="text-align: center">
+								    <a class="btn btn-info waves-effect waves-light"
+									 onclick="returnList()">返回</a>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div th:include="include::footer"></div>
+	<!-- 图片 -->
+	<script type="text/javascript"
+		src="/js/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+	
+	<script type="text/javascript" src="/js/account/recharge.js"></script>
+
+</body>
+</html>

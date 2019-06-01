@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						  <input id="orderNo" th:value="${order.orderNo}"  name="orderNo" class="form-control" type="hidden" ></input>
+							 <div class="form-group">
+	                           <label class="col-sm-4 control-label">支付状态：</label>
+	                           <div class="col-sm-5">
+	                               <select id="orderStatus" name="orderStatus" th:value="${order.orderStatus}" class="selectpicker show-tick form-control" title="请选择一项" data-live-search="true" style="color: blue;">
+	                                       <option value="0" th:selected="${order.orderStatus == '0'}"> 已退款</option>
+	                                       <option value="1" th:selected="${order.orderStatus == '1'}"> 未支付</option>
+	                                       <option value="2" th:selected="${order.orderStatus == '2'}"> 已支付</option>
+	                                       <option value="3" th:selected="${order.orderStatus == '3'}"> 已发货</option>
+	                                       <option value="4" th:selected="${order.orderStatus == '4'}"> 已完成</option>
+	                               </select>
+	                           </div>
+	                        </div> 
+							<div class="form-group">
+								 <label class="col-sm-4 control-label">订单金额：</label>
+								<div class="col-sm-5">
+									<input id="orderPrice" th:value="${order.orderPrice}"  name="orderPrice" class="form-control" ></input>
+								</div>
+								
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">收货人姓名：</label>
+								<div class="col-sm-5 ">
+									<input id="orderName" th:value="${order.orderName}"   name="orderName" class="form-control" ></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">收货人手机号：</label>
+								<div class="col-sm-5 ">
+									<input id="orderPhone"  th:value="${order.orderPhone}"  name="orderPhone" class="form-control" ></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">收货地址：</label>
+								<div class="col-sm-5 ">
+									<input id="orderAddress"  th:value="${order.orderAddress}"  name="orderAddress" class="form-control" ></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">运费：</label>
+								<div class="col-sm-5 ">
+									<input id="orderFare" th:value="${order.orderFare}" name="orderFare" class="form-control" ></input>
+								</div>
+							</div>
+							<div class="form-group">
+	                           <label class="col-sm-4 control-label">购买方式：</label>
+	                           <div class="col-sm-5">
+	                               <select id="orderGroup" name="orderGroup" th:value="${order.orderGroup}" class="selectpicker show-tick form-control" title="请选择一项" data-live-search="true" style="color: blue;">
+	                                       <option value="0" th:selected="${order.orderGroup == '0'}"> 非团购</option>
+	                                       <option value="1" th:selected="${order.orderGroup == '1'}"> 团购</option>
+	                               </select>
+	                           </div>
+	                        </div>
+							<div class="form-group">
+	                           <label class="col-sm-4 control-label">送货方式：</label>
+	                           <div class="col-sm-5">
+	                               <select id="orderDelivery" name="orderDelivery" th:value="${order.orderDelivery}" class="selectpicker show-tick form-control" title="请选择一项" data-live-search="true" style="color: blue;">
+	                                       <option value="0" th:selected="${order.orderDelivery == '0'}"> 自己配送</option>
+	                                       <option value="1" th:selected="${order.orderDelivery == '1'}"> 上门提货</option>
+	                               </select>
+	                           </div>
+	                        </div>
+							 <div class="form-group">
+								<div class="col-sm-9 col-sm-offset-5">
+								    <a class="btn btn-default waves-effect waves-light"
+									 onclick="returnList()">返回列表</a>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div> 
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+
+	<script type="text/javascript" src="/js/goods/receiving/edit.js">	</script>
+</body>
+</html>

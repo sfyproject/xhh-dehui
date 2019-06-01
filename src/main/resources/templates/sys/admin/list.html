@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+	     <div class="col-sm-8 col-sm-offset-4">
+		    <form class="bs-example bs-example-form" role="form" >
+				          <div class="form-group col-sm-3">
+			        		  <div class="input-group">
+						            <span class="input-group-addon">姓名</span>
+						            <input id="adminUsername" type="text" class="form-control"
+									placeholder="请输入姓名"/>
+			      			  </div>
+		      			  </div>
+		    </form>
+		    <button class="btn btn-success" type="button" onclick="reLoad()">查询</button>
+		</div>
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div id="exampleToolbar" role="group">
+						<button shiro:hasPermission="back:admin:add" type="button"
+							class="btn  btn-primary" onclick="add()">
+							<i class="fa fa-plus hidden" aria-hidden="true"></i>添加
+						</button>
+					</div>
+					<table id="exampleTable"  data-mobile-responsive="true" data-height="800px">
+					</table>
+				</div>
+			</div>
+		</div>
+		<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+		<div>
+			<script type="text/javascript">
+				var s_edit_h = 'hidden';
+				var s_remove_h = 'hidden';
+				var s_resetPwd_h = 'hidden';
+			</script>
+		</div>
+		<div shiro:hasPermission="back:admin:edit">
+			<script type="text/javascript">
+				s_edit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="back:api:admin:delete">
+			<script type="text/javascript">
+				var s_remove_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="back:admin:resetPwd">
+			<script type="text/javascript">
+				var s_resetPwd_h = '';
+			</script>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/sys/admin/list.js"></script>
+</body>
+</html>

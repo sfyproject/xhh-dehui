@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.FreightMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Freight">
+		<id column="freight_id" jdbcType="VARCHAR" property="freightId" />
+		<result column="freight_type" jdbcType="VARCHAR"
+			property="freightType" />
+		<result column="freight_city" jdbcType="VARCHAR"
+			property="freightCity" />
+		<result column="freight_same" jdbcType="VARCHAR"
+			property="freightSame" />
+		<result column="freight_general" jdbcType="VARCHAR"
+			property="freightGeneral" />
+		<result column="freight_remote" jdbcType="VARCHAR"
+			property="freightRemote" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		freight_id, freight_type, freight_city, freight_same,
+		freight_general,
+		freight_remote
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_freight
+		where freight_id = #{freightId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_freight
+		where freight_id = #{freightId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Freight">
+		insert into store_freight
+		(freight_id, freight_type,
+		freight_city, freight_same, freight_general,
+		freight_remote)
+		values (#{freightId,jdbcType=VARCHAR},
+		#{freightType,jdbcType=VARCHAR},
+		#{freightCity,jdbcType=VARCHAR},
+		#{freightSame,jdbcType=VARCHAR},
+		#{freightGeneral,jdbcType=VARCHAR},
+		#{freightRemote,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Freight">
+		insert into store_freight
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="freightId != null">
+				freight_id,
+			</if>
+			<if test="freightType != null">
+				freight_type,
+			</if>
+			<if test="freightCity != null">
+				freight_city,
+			</if>
+			<if test="freightSame != null">
+				freight_same,
+			</if>
+			<if test="freightGeneral != null">
+				freight_general,
+			</if>
+			<if test="freightRemote != null">
+				freight_remote,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="freightId != null">
+				#{freightId,jdbcType=VARCHAR},
+			</if>
+			<if test="freightType != null">
+				#{freightType,jdbcType=VARCHAR},
+			</if>
+			<if test="freightCity != null">
+				#{freightCity,jdbcType=VARCHAR},
+			</if>
+			<if test="freightSame != null">
+				#{freightSame,jdbcType=VARCHAR},
+			</if>
+			<if test="freightGeneral != null">
+				#{freightGeneral,jdbcType=VARCHAR},
+			</if>
+			<if test="freightRemote != null">
+				#{freightRemote,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Freight">
+		update store_freight
+		<set>
+			<if test="freightType != null">
+				freight_type = #{freightType,jdbcType=VARCHAR},
+			</if>
+			<if test="freightCity != null">
+				freight_city = #{freightCity,jdbcType=VARCHAR},
+			</if>
+			<if test="freightSame != null">
+				freight_same = #{freightSame,jdbcType=VARCHAR},
+			</if>
+			<if test="freightGeneral != null">
+				freight_general = #{freightGeneral,jdbcType=VARCHAR},
+			</if>
+			<if test="freightRemote != null">
+				freight_remote = #{freightRemote,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where freight_id = #{freightId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Freight">
+		update store_freight
+		set freight_type =
+		#{freightType,jdbcType=VARCHAR},
+		freight_city =
+		#{freightCity,jdbcType=VARCHAR},
+		freight_same =
+		#{freightSame,jdbcType=VARCHAR},
+		freight_general =
+		#{freightGeneral,jdbcType=VARCHAR},
+		freight_remote =
+		#{freightRemote,jdbcType=VARCHAR}
+		where freight_id =
+		#{freightId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectByTypeAndCity" resultMap="BaseResultMap">
+		select * from
+		store_freight where freight_type = #{type} and freight_city =
+		#{city}
+	</select>
+	<select id="selectAll" resultType="java.lang.String">
+		select freight_type from
+		store_freight
+	</select>
+</mapper>

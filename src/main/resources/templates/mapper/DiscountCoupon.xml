@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.DiscountCouponMapper">
+	<resultMap id="BaseResultMap"
+		type="com.store.model.DiscountCoupon">
+		<id column="coupon_id" jdbcType="BIGINT" property="couponId" />
+		<result column="coupon_name" jdbcType="VARCHAR"
+			property="couponName" />
+		<result column="face_price" jdbcType="BIGINT"
+			property="facePrice" />
+		<result column="pay_price" jdbcType="BIGINT"
+			property="payPrice" />
+		<result column="source" jdbcType="VARCHAR" property="source" />
+		<result column="start_time" jdbcType="TIMESTAMP"
+			property="startTime" />
+		<result column="end_time" jdbcType="TIMESTAMP"
+			property="endTime" />
+		<result column="coupon_status" jdbcType="TINYINT"
+			property="couponStatus" />
+		<result column="addtime" jdbcType="TIMESTAMP"
+			property="addtime" />
+		<result column="coupon_type" jdbcType="TINYINT"
+			property="couponType" />
+		<result column="swit" jdbcType="VARCHAR" property="swit" />
+	</resultMap>
+	
+	<resultMap id="CouponTypeMap"
+		type="com.store.model.DiscountCoupon">
+		<id column="coupon_name" jdbcType="VARCHAR"
+			property="couponName" />
+		<result column="creeate_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		coupon_id, coupon_name, face_price, pay_price, source,
+		start_time, end_time,
+		coupon_status, addtime, coupon_type, swit
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from discount_coupon
+		where coupon_id = #{couponId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		discount_coupon
+		where coupon_id = #{couponId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.DiscountCoupon">
+		insert into discount_coupon
+		(coupon_id, coupon_name,
+		face_price, pay_price, source,
+		start_time,
+		end_time, coupon_status,
+		addtime, coupon_type, swit)
+		values
+		(#{couponId,jdbcType=BIGINT}, #{couponName,jdbcType=VARCHAR},
+		#{facePrice,jdbcType=BIGINT}, #{payPrice,jdbcType=BIGINT},
+		#{source,jdbcType=VARCHAR},
+		#{startTime,jdbcType=TIMESTAMP},
+		#{endTime,jdbcType=TIMESTAMP}, #{couponStatus,jdbcType=TINYINT},
+		#{addtime,jdbcType=TIMESTAMP}, #{couponType,jdbcType=TINYINT},
+		#{swit,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.DiscountCoupon">
+		insert into discount_coupon
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				coupon_id,
+			</if>
+			<if test="couponName != null">
+				coupon_name,
+			</if>
+			<if test="facePrice != null">
+				face_price,
+			</if>
+			<if test="payPrice != null">
+				pay_price,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="couponStatus != null">
+				coupon_status,
+			</if>
+			<if test="addtime != null">
+				addtime,
+			</if>
+			<if test="couponType != null">
+				coupon_type,
+			</if>
+			<if test="swit != null">
+				swit,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				#{couponId,jdbcType=BIGINT},
+			</if>
+			<if test="couponName != null">
+				#{couponName,jdbcType=VARCHAR},
+			</if>
+			<if test="facePrice != null">
+				#{facePrice,jdbcType=BIGINT},
+			</if>
+			<if test="payPrice != null">
+				#{payPrice,jdbcType=BIGINT},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="couponStatus != null">
+				#{couponStatus,jdbcType=TINYINT},
+			</if>
+			<if test="addtime != null">
+				#{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="couponType != null">
+				#{couponType,jdbcType=TINYINT},
+			</if>
+			<if test="swit != null">
+				#{swit,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.DiscountCoupon">
+		update discount_coupon
+		<set>
+			<if test="couponName != null">
+				coupon_name = #{couponName,jdbcType=VARCHAR},
+			</if>
+			<if test="facePrice != null">
+				face_price = #{facePrice,jdbcType=BIGINT},
+			</if>
+			<if test="payPrice != null">
+				pay_price = #{payPrice,jdbcType=BIGINT},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="couponStatus != null">
+				coupon_status = #{couponStatus,jdbcType=TINYINT},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="couponType != null">
+				coupon_type = #{couponType,jdbcType=TINYINT},
+			</if>
+			<if test="swit != null">
+				swit = #{swit,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where coupon_id = #{couponId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.DiscountCoupon">
+		update discount_coupon
+		set
+		coupon_name =
+		#{couponName,jdbcType=VARCHAR},
+		face_price =
+		#{facePrice,jdbcType=BIGINT},
+		pay_price = #{payPrice,jdbcType=BIGINT},
+		source = #{source,jdbcType=VARCHAR},
+		start_time =
+		#{startTime,jdbcType=TIMESTAMP},
+		end_time =
+		#{endTime,jdbcType=TIMESTAMP},
+		coupon_status =
+		#{couponStatus,jdbcType=TINYINT},
+		addtime =
+		#{addtime,jdbcType=TIMESTAMP},
+		coupon_type =
+		#{couponType,jdbcType=TINYINT},
+		swit =
+		#{swit,jdbcType=VARCHAR}
+		where
+		coupon_id =
+		#{couponId,jdbcType=BIGINT}
+	</update>
+	<!-- ================================================================== -->
+	<!-- 查询优惠券列表 -->
+	<select id="selectAllByPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from discount_coupon
+		where 1=1
+		<if test="couponName !='' and couponName != null">
+			and coupon_name like #{couponName,jdbcType=VARCHAR}
+		</if>
+		order by source , addtime desc
+	</select>
+
+	<!-- 查询优惠券列表 -->
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from discount_coupon where now() <![CDATA[<=]]>
+		end_time
+	</select>
+	
+	<!-- 通过优惠券ID查询 -->
+	<select id = "selectByCouponId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from discount_coupon 
+		where coupon_Id = #{couponId,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertCouponType" parameterType="com.store.model.DiscountCoupon">
+		insert into coupon_type
+		(coupon_name,create_time,user_id)
+		values
+		(#{couponName,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+	    #{userId,jdbcType=VARCHAR})
+	</insert>
+	
+	
+	<select id = "selectAllCouponType" resultMap="CouponTypeMap">
+		select coupon_name
+		from coupon_type
+		where 1=1
+	</select>
+</mapper>

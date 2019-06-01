@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="/js/plugins/bootstrap-fileinput/bootstrap-fileinput.css">
+<meta charset="utf-8"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<script>
+function reloadPage(){
+  location.reload()
+}
+</script>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div style="float: right;">
+		    <button class="btn btn-warning btn-sm" onclick="reloadPage()"><span class="glyphicon glyphicon-refresh" ></span>
+	        </button>
+        </div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<input id="goodsId" name="goodsId" type="hidden" th:value="${goods.goodsId}"/>
+							<input id="goodsImaget"  type="hidden" th:value="${goods.goodsImage}"></input>
+	                                
+							<div class="form-group">
+								<label class="col-sm-2 control-label">商品标签：</label>
+								<div class="col-sm-4">
+									<select   id="goodsLabel" data-style="btn-info" name="goodsLabel" th:value="${goods.goodsLabel}" class="selectpicker show-tick form-control" title="请选择一项" data-live-search="true" style="color: blue;">
+	                                       <option 	th:each="obj:${list}" th:value="${obj.sortId}" th:selected="${goods.goodsLabel == obj.sortId}"
+												th:text="${obj.sortName}"  >
+										   </option>
+	                               </select>
+								</div>
+								<label class="col-sm-1 control-label">商品类型：</label>
+								<div class="col-sm-4">
+									<select     id="goodsType"  data-style="btn-info" name="goodsType"  class="selectpicker show-tick form-control" title="请选择一项" data-live-search="true" style="color: blue;">
+                                      
+	                               </select>
+	                               <input type="hidden" id="goodsTypet"  th:value="${goods.goodsType}" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">商品标题：</label>
+								<div class="col-sm-4">
+								   	<input id="goodsTitle" name="goodsTitle" class="form-control" type="text" th:value="${goods.goodsTitle}" placeholder="请输入商品标题"/>
+								</div>
+								<label class="col-sm-1 control-label">入库价格：</label>
+	                           <div class="col-sm-4">
+	                              <input id="goodsLibrary" name="goodsLibrary" class="form-control" th:value="${goods.goodsLibrary}" placeholder="请输入入库价格"
+										type="text" />
+	                           </div>
+								
+								
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">商品数量：</label>
+								<div class="col-sm-4">
+									<input id="goodsInventory" name="goodsInventory" th:value="${goods.goodsInventory}" class="form-control" type="text" placeholder="请输入商品数量"/>
+								</div>
+								<label class="col-sm-1 control-label">商品规格：</label>
+								<div class="col-sm-4">
+									<input id="goodsSpec" name="goodsSpec" class="form-control" th:value="${goods.goodsSpec}" placeholder="列如  : 斤"
+										type="text" />
+								</div>
+							</div>
+							<div class="form-group">
+							   <label class="col-sm-2 control-label">原价：</label>
+		                       <div class="col-sm-4">
+		                            <input id="goodsOriginal" name="goodsOriginal" class="form-control" th:value="${goods.goodsOriginal}" placeholder="请输入商品原价"
+											type="text" />
+		                       </div>
+	                           <label class="col-sm-1 control-label">现价：</label>
+	                           <div class="col-sm-4">
+	                               <input id="goodsPrice" name="goodsPrice" class="form-control" th:value="${goods.goodsPrice}" placeholder="请输入商品现价"
+										type="text" />
+	                           </div>
+	                        </div>
+							<div class="form-group">
+							   <label class="col-sm-2 control-label">秒杀价：</label>
+	                           <div class="col-sm-4">
+	                               <input id="goodsSecond" name="goodsSecond" class="form-control" th:value="${goods.goodsSecond}" placeholder="请输入商品秒杀价"
+										type="text" />
+	                           </div>
+	                           <label class="col-sm-1 control-label">拼团价：</label>
+	                           <div class="col-sm-4">
+	                               <input id="goodsGroup" name="goodsGroup" class="form-control" th:value="${goods.goodsGroup}" placeholder="请输入商品拼团价"
+										type="text" />
+	                           </div>
+	                        </div>
+							 <div class="form-group">
+		                        <label class="col-sm-2 control-label">商品图片</label>
+		                        <div class="col-sm-9">
+		                            <input type="file" name="myfile" data-ref="url2"
+		                                class="col-sm-9 myfile" value=""   multiple /> <input type="hidden" 
+		                                name="url2" value="">
+		                        </div>
+		                    </div>
+		                     <div class="form-group">
+								<label class="col-sm-2 control-label">商品封面:</label>
+								<div class="col-sm-4">
+	                                <select id="goodsImage" data-style="btn-info" name="goodsImage" th:value="${goods.goodsImage}" class="selectpicker show-tick" title="请选择一项" data-live-search="true" data-size="5">
+	                                </select>
+	                            </div>
+	                            <label class="col-sm-1 control-label">商品销量：</label>
+								<div class="col-sm-4">
+									<input id="goodsSales" name="goodsSales" class="form-control" th:value="${goods.goodsSales}" placeholder="请输入商品销量"
+										type="text" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">描述：</label>
+								<div class="col-sm-9 ">
+									<textarea id="goodsDescribe"  placeholder="请输入商品描述" name="goodsDescribe" th:value="${goods.goodsDescribe}" class="form-control" rows="3"></textarea>
+								</div>
+							</div>  
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-5">
+								    <a class="btn btn-success waves-effect waves-light"
+									 onclick="returnList()">返回列表</a>
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<div th:include="include::footer"></div>
+	<!-- 图片 -->
+	<script type="text/javascript"
+		src="/js/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+	<script type="text/javascript"
+		src="/js/plugins/bootstrap-fileinput/zh.js"></script>
+	
+	<script type="text/javascript" src="/js/goods/sellwell/edit.js"></script>
+	<script type="text/javascript" src="/js/goods/gimg/gimg.js"></script>
+		
+
+
+
+</body>
+</html>

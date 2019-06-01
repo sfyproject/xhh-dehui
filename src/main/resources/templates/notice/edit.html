@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<div class="col-sm-12">
+							<h4>公告编辑</h4>
+						</div>
+						<form class="form-horizontal m-t" id="signupForm">
+							<input id="noticeId" name="noticeId" type="hidden" th:value="${notice.noticeId}"/>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">公告标题：</label>
+								<div class="col-sm-7">
+									<input id="noticeTitle" name="noticeTitle" class="form-control" 
+										type="text" th:value="${notice.noticeTitle}"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">公告内容：</label>
+								<div class="col-sm-7">
+									<input id="noticeContent" name="noticeContent" class="form-control" 
+										type="text" th:value="${notice.noticeContent}"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">公告结尾：</label>
+								<div class="col-sm-7">
+									<input id="noticeEnding" name="noticeEnding" class="form-control" 
+										type="text" th:value="${notice.noticeEnding}"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">状态：</label>
+	                            <div class="col-sm-7">
+	                                <select id="noticeStatus" name="noticeStatus" th:value="${notice.noticeStatus}" class="selectpicker show-tick" data-style="btn-info" title="请选择一项" data-live-search="true" data-size="5">
+	                                        <option th:selected="${notice.noticeStatus=='0'}" value="0">OFF</option>
+	                                        <option th:selected="${notice.noticeStatus=='1'}" value="1">ON</option>
+	                                </select>
+	                             </div>
+							</div>
+							 <div class="form-group">
+								<label class="col-sm-3 control-label">公告图片:</label>
+								<div class="col-sm-7">
+									<div class="hidden" id="imglist">
+								    </div>
+								    <input type="file" name="myfile" id="imgup" data-ref="noticeImage"  multiple="true"
+		                                class="col-sm-10 myfile" value="" /> 
+		                                <input type="hidden" name="noticeImage" id="noticeImage" th:value="${notice.noticeImage}">
+							    </div>
+							</div> 
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-5">
+									<a class="btn btn-success waves-effect waves-light"
+										onclick="returnList()">返回列表</a>
+									<button class="btn btn-primary waves-effect waves-light"
+										 onclick="update()">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" 
+			src="/js/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+	<script type="text/javascript"
+			src="/js/plugins/bootstrap-fileinput/zh.js"></script>
+	<script type="text/javascript" src="/js/notice/edit.js"></script>
+	<script type="text/javascript" src="/js/notice/noticeImgEdit.js"></script>
+</body>
+</html>

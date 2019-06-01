@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.AdminMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Admin">
+		<id column="admin_id" jdbcType="VARCHAR" property="adminId" />
+		<result column="admin_username" jdbcType="VARCHAR"
+			property="adminUsername" />
+		<result column="admin_password" jdbcType="VARCHAR"
+			property="adminPassword" />
+		<result column="admin_type" jdbcType="VARCHAR"
+			property="adminType" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		admin_id, admin_username, admin_password, admin_type,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_admin
+		where admin_id = #{adminId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_admin
+		where admin_id = #{adminId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Admin">
+		insert into store_admin
+		(admin_id, admin_username, admin_password,
+		admin_type, create_time)
+		values (#{adminId,jdbcType=VARCHAR},
+		#{adminUsername,jdbcType=VARCHAR},
+		#{adminPassword,jdbcType=VARCHAR},
+		#{adminType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Admin">
+		insert into store_admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="adminId != null">
+				admin_id,
+			</if>
+			<if test="adminUsername != null">
+				admin_username,
+			</if>
+			<if test="adminPassword != null">
+				admin_password,
+			</if>
+			<if test="adminType != null">
+				admin_type,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="adminId != null">
+				#{adminId,jdbcType=VARCHAR},
+			</if>
+			<if test="adminUsername != null">
+				#{adminUsername,jdbcType=VARCHAR},
+			</if>
+			<if test="adminPassword != null">
+				#{adminPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="adminType != null">
+				#{adminType,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Admin">
+		update store_admin
+		<set>
+			<if test="adminUsername != null">
+				admin_username = #{adminUsername,jdbcType=VARCHAR},
+			</if>
+			<if test="adminPassword != null">
+				admin_password = #{adminPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="adminType != null">
+				admin_type = #{adminType,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where admin_id = #{adminId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Admin">
+		update store_admin
+		set admin_username =
+		#{adminUsername,jdbcType=VARCHAR},
+		admin_password =
+		#{adminPassword,jdbcType=VARCHAR},
+		admin_type =
+		#{adminType,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where admin_id =
+		#{adminId,jdbcType=VARCHAR}
+	</update>
+	<select id="selectAll" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from store_admin where 1 = 1
+		<if test="_parameter != null and _parameter != ''">
+			and admin_username like #{adminUsername}
+		</if>
+	</select>
+	<select id="loadAdminByUsername"
+		parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		*
+		from store_admin
+		where admin_username = #{adminUsername,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="exitEdit" parameterType="com.store.model.Admin"
+		resultMap="BaseResultMap">
+		SELECT * FROM store_admin WHERE  admin_username = #{adminUsername} AND  admin_id !=#{adminId,jdbcType=VARCHAR}
+	</select>
+</mapper>

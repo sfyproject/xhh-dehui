@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.RefundMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Refund">
+		<id column="refund_id" jdbcType="VARCHAR" property="refundId" />
+		<result column="refund_coin" jdbcType="VARCHAR"
+			property="refundCoin" />
+		<result column="refund_uid" jdbcType="VARCHAR"
+			property="refundUid" />
+		<result column="refund_type" jdbcType="VARCHAR"
+			property="refundType" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		refund_id, refund_coin, refund_uid, refund_type,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from store_refund
+		where refund_id = #{refundId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_refund
+		where refund_id = #{refundId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Refund">
+		insert into store_refund
+		(refund_id, refund_coin, refund_uid, refund_type,
+		create_time)
+		values
+		(#{refundId,jdbcType=VARCHAR}, #{refundCoin,jdbcType=VARCHAR},
+		#{refundUid,jdbcType=VARCHAR}, #{refundType,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Refund">
+		insert into store_refund
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="refundId != null">
+				refund_id,
+			</if>
+			<if test="refundCoin != null">
+				refund_coin,
+			</if>
+			<if test="refundUid != null">
+				refund_uid,
+			</if>
+			<if test="refundType != null">
+				refund_type,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="refundId != null">
+				#{refundId,jdbcType=VARCHAR},
+			</if>
+			<if test="refundCoin != null">
+				#{refundCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="refundUid != null">
+				#{refundUid,jdbcType=VARCHAR},
+			</if>
+			<if test="refundType != null">
+				#{refundType,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Refund">
+		update store_refund
+		<set>
+			<if test="refundCoin != null">
+				refund_coin = #{refundCoin,jdbcType=VARCHAR},
+			</if>
+			<if test="refundUid != null">
+				refund_uid = #{refundUid,jdbcType=VARCHAR},
+			</if>
+			<if test="refundType != null">
+				refund_type = #{refundType,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where refund_id = #{refundId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Refund">
+		update store_refund
+		set refund_coin =
+		#{refundCoin,jdbcType=VARCHAR},
+		refund_uid =
+		#{refundUid,jdbcType=VARCHAR},
+		refund_type =
+		#{refundType,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where refund_id =
+		#{refundId,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectByUid" resultMap="BaseResultMap">
+		select * from store_refund
+		where refund_uid = #{uid} order by create_time desc
+	</select>
+</mapper>

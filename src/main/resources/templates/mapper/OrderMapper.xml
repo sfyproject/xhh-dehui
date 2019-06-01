@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.store.dao.OrderMapper">
+	<resultMap id="BaseResultMap" type="com.store.model.Order">
+		<id column="order_no" jdbcType="VARCHAR" property="orderNo" />
+		<result column="order_price" jdbcType="VARCHAR"
+			property="orderPrice" />
+		<result column="order_status" jdbcType="VARCHAR"
+			property="orderStatus" />
+		<result column="order_uid" jdbcType="VARCHAR"
+			property="orderUid" />
+		<result column="order_name" jdbcType="VARCHAR"
+			property="orderName" />
+		<result column="order_phone" jdbcType="VARCHAR"
+			property="orderPhone" />
+		<result column="order_address" jdbcType="VARCHAR"
+			property="orderAddress" />
+		<result column="order_fare" jdbcType="VARCHAR"
+			property="orderFare" />
+		<result column="order_group" jdbcType="VARCHAR"
+			property="orderGroup" />
+		<result column="group_status" jdbcType="VARCHAR"
+			property="groupStatus" />
+		<result column="order_delivery" jdbcType="VARCHAR"
+			property="orderDelivery" />
+		<result column="update_time" jdbcType="TIMESTAMP"
+			property="updateTime" />
+		<result column="create_time" jdbcType="TIMESTAMP"
+			property="createTime" />
+		<!-- <result column="user_phone" jdbcType="VARCHAR"
+			property="userPhone" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" /> -->
+	</resultMap>
+	<sql id="Base_Column_List">
+		order_no,
+		order_price,
+		order_status,
+		order_uid,
+		order_name,
+		order_phone,
+		order_address,
+		order_fare,
+		order_group,
+		group_status,
+		order_delivery,
+		update_time,
+		create_time
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		*
+		from store_order
+		where order_no =
+		#{orderNo,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		store_order
+		where order_no = #{orderNo,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.store.model.Order">
+		insert into store_order
+		(order_no,
+		order_price,
+		order_status,
+		order_uid,
+		order_name,
+		order_phone,
+		order_address,
+		order_fare,
+		order_group,
+		group_status,
+		order_delivery,
+		update_time,
+		create_time)
+		values
+		(#{orderNo,jdbcType=VARCHAR},
+		#{orderPrice,jdbcType=VARCHAR},
+		#{orderStatus,jdbcType=VARCHAR},
+		#{orderUid,jdbcType=VARCHAR},
+		#{orderName,jdbcType=VARCHAR},
+		#{orderPhone,jdbcType=VARCHAR},
+		#{orderAddress,jdbcType=VARCHAR},
+		#{orderFare,jdbcType=VARCHAR},
+		#{orderGroup,jdbcType=VARCHAR},
+		#{groupStatus,jdbcType=VARCHAR},
+		#{orderDelivery,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.store.model.Order">
+		insert into store_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="orderPrice != null">
+				order_price,
+			</if>
+			<if test="orderStatus != null">
+				order_status,
+			</if>
+			<if test="orderUid != null">
+				order_uid,
+			</if>
+			<if test="orderName != null">
+				order_name,
+			</if>
+			<if test="orderPhone != null">
+				order_phone,
+			</if>
+			<if test="orderAddress != null">
+				order_address,
+			</if>
+			<if test="orderFare != null">
+				order_fare,
+			</if>
+			<if test="orderGroup != null">
+				order_group,
+			</if>
+			<if test="groupStatus != null">
+				group_status,
+			</if>
+			<if test="orderDelivery != null">
+				order_delivery,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="orderPrice != null">
+				#{orderPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="orderStatus != null">
+				#{orderStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="orderUid != null">
+				#{orderUid,jdbcType=VARCHAR},
+			</if>
+			<if test="orderName != null">
+				#{orderName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderPhone != null">
+				#{orderPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="orderAddress != null">
+				#{orderAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="orderFare != null">
+				#{orderFare,jdbcType=VARCHAR},
+			</if>
+			<if test="orderGroup != null">
+				#{orderGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="groupStatus != null">
+				#{groupStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDelivery != null">
+				#{orderDelivery,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.store.model.Order">
+		update store_order
+		<set>
+			<if test="orderPrice != null">
+				order_price = #{orderPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="orderStatus != null">
+				order_status =
+				#{orderStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="orderUid != null">
+				order_uid = #{orderUid,jdbcType=VARCHAR},
+			</if>
+			<if test="orderName != null">
+				order_name = #{orderName,jdbcType=VARCHAR},
+			</if>
+			<if test="orderPhone != null">
+				order_phone = #{orderPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="orderAddress != null">
+				order_address = #{orderAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="orderFare != null">
+				order_fare = #{orderFare,jdbcType=VARCHAR},
+			</if>
+			<if test="orderGroup != null">
+				order_group = #{orderGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="groupStatus != null">
+				group_status = #{groupStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDelivery != null">
+				order_delivery = #{orderDelivery,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where order_no = #{orderNo,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.store.model.Order">
+		update store_order
+		set order_price =
+		#{orderPrice,jdbcType=VARCHAR},
+		order_status =
+		#{orderStatus,jdbcType=VARCHAR},
+		order_uid =
+		#{orderUid,jdbcType=VARCHAR},
+		order_name =
+		#{orderName,jdbcType=VARCHAR},
+		order_phone =
+		#{orderPhone,jdbcType=VARCHAR},
+		order_address =
+		#{orderAddress,jdbcType=VARCHAR},
+		order_fare =
+		#{orderFare,jdbcType=VARCHAR},
+		order_group =
+		#{orderGroup,jdbcType=VARCHAR},
+		group_status =
+		#{groupStatus,jdbcType=VARCHAR},
+		order_delivery =
+		#{orderDelivery,jdbcType=VARCHAR},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP}
+		where order_no =
+		#{orderNo,jdbcType=VARCHAR}
+	</update>
+	<!-- 自定义 -->
+	<select id="selectByUidAndStatus" resultMap="BaseResultMap">
+		select
+		order_no,
+		order_price,
+		order_status,
+		order_name,
+		order_phone,
+		order_address,
+		order_fare,
+		order_group,
+		group_status,
+		order_delivery,
+		update_time,
+		create_time
+		from
+		store_order where order_uid = #{uid}
+		and order_group = #{orderGroup}
+		<if test="status != null and status != ''">
+			and order_status = #{status}
+		</if>
+		order by create_time desc
+	</select>
+	<select id="selectAll" 
+			parameterType="com.store.model.Order"
+			resultMap="BaseResultMap">
+			select s.*,
+				u.user_name,
+				u.user_phone	
+			from store_order s
+			left join store_user u on (s.order_uid = u.user_id) where 1 = 1
+		<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+			<if test="startDate != null and startDate != ''">
+				and s.create_time <![CDATA[ >= ]]>
+				#{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and s.create_time <![CDATA[ <= ]]>
+				#{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</if>
+		<if test="orderNo != null and orderNo !=''">
+			and s.order_no like concat('%', #{orderNo}, '%')
+		</if>
+		<if test="orderStatus != null and orderStatus !=''">
+			and s.order_status = #{orderStatus}
+		</if>
+		<if test="orderName != null and orderName !=''">
+			and s.order_name like concat('%', #{orderName}, '%')
+		</if>
+		<if test="orderPhone != null and orderPhone !=''">
+			and s.order_phone like concat('%', #{orderPhone}, '%')
+		</if>
+		<if test="userName != null and userName !=''">
+			and u.user_name like concat('%', #{userName}, '%')
+		</if>
+		<if test="userPhone != null and userPhone !=''">
+			and u.user_phone like concat('%', #{userPhone}, '%')
+		</if>
+	</select>
+	<select id="selectGroupCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(order_no) from store_order join store_ogd on order_no = ogd_no where order_group = '1'
+		and ogd_gid = #{gid}
+	</select>
+	<select id="selectReceivingAll" parameterType="com.store.model.Order"
+		resultMap="BaseResultMap">
+		select o.*,u.user_name as userName,u.user_phone as userPhone from store_order o INNER JOIN store_user u on o.order_uid=u.user_id
+		<where>
+			<if test="(startDate != null and startDate != '') || (endDate!= null and endDate != '')">
+				<if test="startDate != null and startDate != ''">
+					and o.create_time <![CDATA[ >= ]]>
+					#{startDate,jdbcType=TIMESTAMP}
+				</if>
+				<if test="endDate != null and endDate != ''">
+					and o.create_time <![CDATA[ <= ]]>
+					#{endDate,jdbcType=TIMESTAMP}
+				</if>
+			</if>
+			<if test="orderStatus != null and orderStatus !=''">
+				and o.order_status = #{orderStatus}
+			</if>
+			<if test="orderGroup != null and orderGroup !=''">
+				and o.order_group = #{orderGroup}
+			</if>
+			<if test="orderDelivery != null and orderDelivery !=''">
+				and o.order_delivery = #{orderDelivery}
+			</if>
+			<if test="userName != null and userName !=''">
+				and u.user_name like concat('%', #{userName}, '%')
+			</if>
+			<if test="userPhone != null and userPhone !=''">
+				and u.user_phone like concat('%', #{userPhone}, '%')
+			</if>
+		</where>
+	</select>
+	<!-- 批量删除 -->
+     <delete id="batchRemove">
+        delete from store_order where order_no in (
+        <foreach collection="list" item="id" separator=",">
+            #{id}
+        </foreach>
+        )  
+     </delete>
+     <select id=""></select>
+     
+</mapper>

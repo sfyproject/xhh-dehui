@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<script>
+function reloadPage(){
+  location.reload()
+}
+</script>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div style="float: right;">
+		    <button class="btn btn-info btn-sm" onclick="reloadPage()"><span class="glyphicon glyphicon-refresh" ></span>
+	        </button>
+        </div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm" >
+							<div class="form-group">
+								<label class="col-sm-4 control-label">账户：</label>
+								<div class="col-sm-5">
+									<input id="adminUsername" autocomplete="off" name="adminUsername" class="form-control" type="text" placeholder="请输入账户"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">密码：</label>
+								<div class="col-sm-5">
+									<input id="adminPassword" autocomplete="off" name="adminPassword" class="form-control" placeholder="请输入密码"
+										type="password"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">确认密码：</label>
+								<div class="col-sm-5">
+									<input id="confirm_password" name="confirm_password" placeholder="请确认密码"
+										class="form-control" type="password"/>
+								</div>
+							</div>
+							<input type="hidden" name="roleIds" id="roleIds"/>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">角色</label>
+								<div class="col-sm-5">
+									<label th:each="role:${roles}" class="checkbox-inline">
+										<input name="role" type="checkbox" th:value="${role.roleId}"
+										th:text="${role.roleName}"/>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-6">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/sys/admin/add.js">
+	</script>
+</body>
+</html>
